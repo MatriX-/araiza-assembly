@@ -1,6 +1,6 @@
 # Araiza Assembly prototype
 
-Single-page local-service website prototype for Araiza Assembly, a furniture assembly and small furniture-building business serving Moore County, Fayetteville, Raeford, and nearby North Carolina communities.
+Single-page local-service website prototype for Araiza Assembly, a furniture assembly and small furniture-building business serving Moore County, Fayetteville, Cumberland County, and surrounding North Carolina areas.
 
 ## Run locally
 
@@ -31,6 +31,6 @@ The photos in `assets/` were generated specifically for this prototype. They con
 
 ## SEO plan
 
-The prototype includes a page title, local meta description, Open Graph fields, a heading hierarchy, click-to-call links, visible service-area language, and a service-area `HomeAndConstructionBusiness` JSON-LD block with no invented address, hours, reviews, awards, or credentials. The public page uses natural phrases such as furniture assembly in Moore County, Fayetteville, and Raeford rather than repeating keywords unnaturally.
+The prototype includes a page title, local meta description, Open Graph fields, a heading hierarchy, click-to-call links, visible service-area language, and a service-area `HomeAndConstructionBusiness` JSON-LD block with no invented address, hours, reviews, awards, or credentials. The public page uses natural phrases such as furniture assembly in Moore County, Fayetteville, and Cumberland County rather than repeating keywords unnaturally.
 
 The internal pricing and first-five-customer plan is in [docs/pricing-and-marketing.md](docs/pricing-and-marketing.md).

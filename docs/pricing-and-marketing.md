@@ -120,13 +120,13 @@ Do not spend the full budget on ads before the quote process has been tested. Th
 
 ### Neighborhood post
 
-> Need a bed, dresser, desk, shelf, or flat-pack piece assembled? Araiza Assembly provides furniture assembly and small furniture building in Moore County, Fayetteville, Raeford, and nearby areas. Send a photo or product link for a free quote. $50 minimum service call. Call or text 910-527-4800.
+> Need a bed, dresser, desk, shelf, or flat-pack piece assembled? Araiza Assembly provides furniture assembly and small furniture building in Moore County, Fayetteville, Cumberland County, and surrounding areas. Send a photo or product link for a free quote. $50 minimum service call. Call or text 910-527-4800.
 
 Add one real service photo, the introductory bundle offer, and a note that customers should send the complete item list when they have more than one piece.
 
 ### Marketplace title
 
-> Furniture Assembly in Fayetteville, Raeford, and Moore County
+> Furniture Assembly in Fayetteville, Cumberland County, and Moore County
 
 The listing should answer four questions quickly: what is assembled, where the service travels, how quoting works, and how to contact the business.
 
