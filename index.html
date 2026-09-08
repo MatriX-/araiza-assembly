@@ -3,28 +3,27 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#f5f2ed" />
+    <meta name="theme-color" content="#ffffff" />
     <meta
       name="description"
-      content="Araiza Assembly provides furniture assembly and small furniture-building services in Moore County, Fayetteville, Raeford, and nearby North Carolina communities."
+      content="Araiza Assembly provides straightforward furniture assembly and small furniture-building services in Moore County, Fayetteville, Raeford, and nearby North Carolina communities."
     />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Furniture assembly without the headache | Araiza Assembly" />
     <meta
       property="og:description"
-      content="Send a photo or product link for a straightforward furniture assembly quote in Moore County, Fayetteville, Raeford, and nearby areas."
+      content="Send a photo or product link for a clear furniture assembly quote in Moore County, Fayetteville, Raeford, and nearby areas."
     />
     <meta property="og:image" content="assets/araiza-assembly-hero.png" />
     <meta property="og:site_name" content="Araiza Assembly" />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="preload" as="image" href="assets/araiza-assembly-hero.png" />
     <link rel="stylesheet" href="styles.css" />
-    <title>Furniture Assembly in Moore County, Fayetteville &amp; Raeford | Araiza Assembly</title>
+    <title>Furniture Assembly Moore County NC | Araiza Assembly</title>
 
     <!--
-      Local SEO plan: this service-area business should use a HomeAndConstructionBusiness
-      subtype once a production URL and final business email are available. No address,
-      reviews, hours, or awards are invented here.
+      Local SEO plan: use the final production URL and business email here once available.
+      No address, reviews, hours, awards, or credentials are invented in this prototype.
     -->
     <script type="application/ld+json">
       {
@@ -65,13 +64,12 @@
     <header class="site-header" id="top">
       <div class="shell header-inner">
         <a class="brand" href="#top">
-          <span class="brand-mark" aria-hidden="true"><span>AA</span></span>
+          <span class="brand-mark" aria-hidden="true"><span>A</span></span>
           <span class="brand-name"><strong>Araiza</strong><small>ASSEMBLY</small></span>
         </a>
 
         <nav class="desktop-nav" aria-label="Primary navigation">
           <a href="#services">Services</a>
-          <a href="#pricing">Pricing</a>
           <a href="#process">How it works</a>
           <a href="#about">About</a>
           <a href="#contact">Contact</a>
@@ -79,10 +77,10 @@
 
         <div class="header-actions">
           <a class="phone-link header-phone" href="tel:+19105274800">
-            <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false"><path d="M6.7 3.7 9 3.1c.6-.2 1.2.1 1.5.7l1.1 2.7c.2.5.1 1.1-.3 1.5L10 9.4a15.3 15.3 0 0 0 4.6 4.6l1.4-1.3c.4-.4 1-.5 1.5-.3l2.7 1.1c.6.3.9.9.7 1.5l-.6 2.3c-.2.7-.8 1.2-1.5 1.2C10.9 18.5 5.5 13.1 5.5 6.2c0-.7.5-1.3 1.2-1.5Z" /></svg>
+            <span class="phone-label">Call</span>
             <span>910-527-4800</span>
           </a>
-          <a class="button button-small button-primary header-quote" href="#contact">Get a free quote</a>
+          <a class="button button-small button-primary header-quote quote-trigger" href="#quote-dialog" data-quote-trigger>Get a free quote</a>
           <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
             <span></span><span></span><span></span>
           </button>
@@ -92,247 +90,173 @@
       <div class="mobile-menu" id="mobile-menu" hidden>
         <nav aria-label="Mobile navigation">
           <a href="#services">Services</a>
-          <a href="#pricing">Pricing</a>
           <a href="#process">How it works</a>
           <a href="#about">About</a>
           <a href="#contact">Contact</a>
         </nav>
-        <a class="button button-primary mobile-menu-cta" href="#contact">Get a free quote</a>
+        <a class="button button-primary mobile-menu-cta quote-trigger" href="#quote-dialog" data-quote-trigger>Get a free quote</a>
         <a class="mobile-menu-phone" href="tel:+19105274800">Call 910-527-4800</a>
       </div>
     </header>
 
     <main id="main-content">
       <section class="hero-section">
-        <div class="shell hero-grid">
+        <div class="hero-shell">
           <div class="hero-copy reveal">
-            <p class="eyebrow">Furniture assembly for the Sandhills</p>
-            <h1><span>Furniture assembly</span><span>without the <em>headache.</em></span></h1>
-            <p class="hero-lede">Professional assembly and small furniture building for Moore County, Fayetteville, Raeford, and nearby communities.</p>
+            <p class="eyebrow">Local service in the Sandhills</p>
+            <h1><span>Need something</span><span class="hero-accent">assembled?</span></h1>
+            <p class="hero-lede">Furniture assembly and small furniture building for Moore County, Fayetteville, Raeford, and nearby communities.</p>
             <div class="hero-actions">
-              <a class="button button-primary" href="#contact">Get a free quote <span aria-hidden="true">↗</span></a>
+              <a class="button button-primary quote-trigger" href="#quote-dialog" data-quote-trigger>Request a quote <span aria-hidden="true">↗</span></a>
               <a class="button button-secondary" href="tel:+19105274800">Call 910-527-4800</a>
             </div>
-            <div class="hero-location">
-              <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false"><path d="M19 10.2c0 4.7-7 10.3-7 10.3S5 14.9 5 10.2a7 7 0 1 1 14 0Z" /><circle cx="12" cy="10" r="2.2" /></svg>
-              <span>Moore County, Fayetteville, Raeford, and surrounding areas</span>
-            </div>
+            <p class="hero-location"><span class="location-pin" aria-hidden="true"></span>Serving Moore County, Fayetteville, Raeford, and surrounding areas</p>
           </div>
 
-          <figure class="hero-figure reveal" data-delay="120">
-            <div class="hero-image-frame">
-              <img src="assets/araiza-assembly-hero.png" alt="Hands assembling a wood furniture piece with organized tools and instructions in a bright home" />
-              <span class="image-stamp">Careful work. Clear next steps.</span>
-            </div>
-            <figcaption>From the first screw to the final wipe-down, the goal is a space you can use.</figcaption>
+          <figure class="hero-media reveal" data-delay="120">
+            <img src="assets/araiza-assembly-hero.png" alt="Hands assembling a wood furniture piece with organized tools and instructions in a bright home" />
           </figure>
         </div>
+      </section>
 
-        <div class="shell trust-rail reveal" data-delay="180" aria-label="Service highlights">
-          <div><strong>Free quotes</strong><span>Send a photo or link</span></div>
-          <div><strong>Upfront pricing</strong><span>Flat-rate when scope is clear</span></div>
-          <div><strong>$50 minimum</strong><span>Simple starting point</span></div>
-          <div><strong>Local service</strong><span>We come to you</span></div>
+      <section class="service-summary" id="services">
+        <div class="shell service-summary-inner reveal">
+          <div>
+            <strong class="service-summary-label">What we assemble</strong>
+            <p>Flat-pack furniture, beds, dressers, desks, shelving, patio pieces, and small custom builds.</p>
+          </div>
+          <a class="text-link quote-trigger" href="#quote-dialog" data-quote-trigger>Send a photo or link <span aria-hidden="true">↗</span></a>
         </div>
       </section>
 
-      <section class="section services-section" id="services">
+      <section class="process-section" id="process">
         <div class="shell">
-          <div class="section-intro reveal">
-            <p class="eyebrow">What we assemble</p>
-            <h2>One call for the pieces that slow you down.</h2>
-            <p>Send a photo, store link, model number, or quick description. We will let you know if the job fits our scope.</p>
+          <div class="section-heading reveal">
+            <h2>How it works</h2>
+            <p>Getting your items assembled is quick and easy.</p>
           </div>
 
-          <div class="services-grid">
-            <article class="service-card service-card-feature reveal">
-              <span class="service-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M4 13.5V11a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2.5M4 13.5h16M6 13.5v3m12-3v3M3 16.5h18M5 9V7.5A1.5 1.5 0 0 1 6.5 6h11A1.5 1.5 0 0 1 19 7.5V9" /></svg></span>
-              <div><h3>IKEA &amp; flat-pack furniture</h3><p>Dressers, shelving, tables, and the parts that arrive in a very flat box.</p></div>
-            </article>
-            <article class="service-card service-card-feature reveal" data-delay="60">
-              <span class="service-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M4 16v-5.5A2.5 2.5 0 0 1 6.5 8h11a2.5 2.5 0 0 1 2.5 2.5V16M4 12h16M6.5 8V6.5A1.5 1.5 0 0 1 8 5h8a1.5 1.5 0 0 1 1.5 1.5V8M6 16v3m12-3v3M3 16h18" /></svg></span>
-              <div><h3>Beds &amp; bed frames</h3><p>Platform beds, headboards, frames, and storage beds assembled with care.</p></div>
-            </article>
-            <article class="service-card reveal" data-delay="120">
-              <span class="service-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M5 5h14v14H5zM5 10h14M5 15h14M9 7.5h.01M9 12.5h.01M9 17.5h.01" /></svg></span>
-              <h3>Dressers &amp; nightstands</h3>
-            </article>
-            <article class="service-card reveal" data-delay="150">
-              <span class="service-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M4 7h16M7 7v10m10-10v10M3 17h18M9 12h6" /></svg></span>
-              <h3>Desks &amp; office furniture</h3>
-            </article>
-            <article class="service-card reveal" data-delay="180">
-              <span class="service-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M5 4h14v16H5zM5 9h14M5 14h14M10 4v5M15 9v5M10 14v6" /></svg></span>
-              <h3>Bookshelves &amp; cabinets</h3>
-            </article>
-            <article class="service-card reveal" data-delay="210">
-              <span class="service-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><rect x="4" y="5" width="16" height="11" rx="1" /><path d="M9 20h6M12 16v4" /></svg></span>
-              <h3>TV stands &amp; entertainment centers</h3>
-            </article>
-            <article class="service-card reveal" data-delay="240">
-              <span class="service-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M6 19h12M8 19v-7m8 7v-7M5 12h14M7 8l5 4 5-4M8 5h8" /></svg></span>
-              <h3>Outdoor &amp; patio furniture</h3>
-            </article>
-            <article class="service-card reveal" data-delay="270">
-              <span class="service-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Z" /><path d="m4 7.5 8 4.5 8-4.5M12 12v9" /></svg></span>
-              <h3>Custom small furniture building</h3>
-            </article>
-            <article class="service-card reveal" data-delay="300">
-              <span class="service-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M6 4h12v9H6zM9 13v5m6-5v5M4 18h16" /><path d="m17 4 3 3-3 3" /></svg></span>
-              <h3>Mounting &amp; securing</h3>
-            </article>
-            <article class="service-card service-card-question reveal" data-delay="330">
-              <span class="service-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M12 20h.01M9.8 9a2.3 2.3 0 1 1 3.9 1.7c-.9.8-1.7 1.1-1.7 2.6" /><circle cx="12" cy="12" r="9" /></svg></span>
-              <h3>Something else?</h3>
-              <p>Send it over. We may be able to help.</p>
-            </article>
-          </div>
-
-          <p class="section-callout reveal">Do not see your item listed? <strong>Send a photo or product link.</strong> We will let you know what is possible.</p>
-        </div>
-      </section>
-
-      <section class="section why-section" id="why">
-        <div class="shell why-layout">
-          <div class="why-lead reveal">
-            <p class="eyebrow">The Araiza approach</p>
-            <h2>Straightforward from quote to cleanup.</h2>
-            <p>Furniture work happens inside your home. The details matter, so the service should feel organized, respectful, and easy to understand.</p>
-          </div>
-          <div class="why-grid">
-            <article class="why-card reveal"><span class="why-number">01</span><h3>Upfront pricing</h3><p>Know the price before work begins whenever the scope can be determined.</p></article>
-            <article class="why-card reveal" data-delay="50"><span class="why-number">02</span><h3>Convenient scheduling</h3><p>Choose a time that fits your household and the furniture waiting to be built.</p></article>
-            <article class="why-card reveal" data-delay="100"><span class="why-number">03</span><h3>Careful workmanship</h3><p>Your furniture, floors, walls, and finished space deserve patient handling.</p></article>
-            <article class="why-card reveal" data-delay="150"><span class="why-number">04</span><h3>No hourly guessing games</h3><p>Flat-rate quotes are used when the job can reasonably be scoped first.</p></article>
-            <article class="why-card reveal" data-delay="200"><span class="why-number">05</span><h3>Local service</h3><p>Serving Moore County, Fayetteville, Raeford, and nearby communities.</p></article>
-            <article class="why-card reveal" data-delay="250"><span class="why-number">06</span><h3>Clean work area</h3><p>Tools, hardware, packaging, and the workspace stay organized as we work.</p></article>
-            <article class="why-card why-card-wide reveal" data-delay="300"><span class="why-number">07</span><h3>Reliable communication</h3><p>Clear updates about timing, price, and any question that comes up before the job is finished.</p></article>
-          </div>
-        </div>
-      </section>
-
-      <section class="section pricing-section" id="pricing">
-        <div class="shell pricing-layout">
-          <div class="pricing-copy reveal">
-            <p class="eyebrow">Simple pricing</p>
-            <h2>A clear quote before the work begins.</h2>
-            <p>Most furniture assembly jobs are quoted at a flat rate before scheduling. Send a photo or product link and we will price the item based on its size and complexity.</p>
-            <a class="text-link" href="#contact">Send the item details <span aria-hidden="true">↗</span></a>
-          </div>
-          <div class="pricing-panel reveal" data-delay="90">
-            <div class="minimum-price"><span>Minimum service call</span><strong>$50</strong><small>Final quotes depend on the item and scope.</small></div>
-            <div class="pricing-rules">
-              <div><span class="rule-icon" aria-hidden="true">+</span><p><strong>Free quotes</strong><br />Share a link, photo, or description.</p></div>
-              <div><span class="rule-icon" aria-hidden="true">+</span><p><strong>Upfront pricing</strong><br />Flat-rate whenever the job can be scoped.</p></div>
-              <div><span class="rule-icon" aria-hidden="true">+</span><p><strong>No surprise changes</strong><br />Any scope change is discussed first.</p></div>
-            </div>
-          </div>
-        </div>
-        <div class="shell pricing-examples reveal" data-delay="140">
-          <div><span>Small pieces</span><strong>from $50</strong><small>Nightstands, chairs, small shelves</small></div>
-          <div><span>Beds and dressers</span><strong>from $75</strong><small>Depends on storage, drawers, and frame style</small></div>
-          <div><span>Large or multi-item jobs</span><strong>Quoted from scope</strong><small>Send every item for a bundled price</small></div>
-        </div>
-        <div class="shell pricing-note reveal" data-delay="180"><span aria-hidden="true">i</span><p>Examples are starting points, not guaranteed prices. Size, weight, drawers, doors, mounting, travel, and unusually complex instructions can change the quote.</p></div>
-      </section>
-
-      <section class="section process-section" id="process">
-        <div class="shell">
-          <div class="section-intro section-intro-narrow reveal">
-            <p class="eyebrow">How it works</p>
-            <h2>Three easy moves. Then it is off your list.</h2>
-            <p>Contacting Araiza Assembly should take only a few minutes.</p>
-          </div>
           <div class="process-grid">
-            <article class="process-card reveal"><span class="process-step">1</span><span class="process-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><rect x="7" y="3" width="10" height="18" rx="2" /><path d="M10 6h4M10 17l1.3 1.3L14 15.5" /></svg></span><h3>Send your furniture</h3><p>Send a photo, store link, model number, or a quick description.</p></article>
-            <div class="process-arrow" aria-hidden="true">→</div>
-            <article class="process-card reveal" data-delay="90"><span class="process-step">2</span><span class="process-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M6 3h9l4 4v14H6zM15 3v5h5M9 13h6M9 17h5" /></svg></span><h3>Get your quote</h3><p>Receive a straightforward estimate before choosing a time.</p></article>
-            <div class="process-arrow" aria-hidden="true">→</div>
-            <article class="process-card reveal" data-delay="180"><span class="process-step">3</span><span class="process-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="m14.5 5.5 4 4M13 7l-6.5 6.5a2.1 2.1 0 0 0 3 3L16 10M5 19h5M16.5 3.5l1-1 4 4-1 1" /></svg></span><h3>We assemble it</h3><p>Pick a convenient time and we handle the setup.</p></article>
+            <article class="process-card reveal">
+              <span class="process-number" aria-hidden="true">1</span>
+              <h3>Request a quote</h3>
+              <p>Send a photo, store link, model number, or description of your item.</p>
+            </article>
+            <span class="process-arrow" aria-hidden="true">→</span>
+            <article class="process-card reveal" data-delay="90">
+              <span class="process-number" aria-hidden="true">2</span>
+              <h3>Confirm and schedule</h3>
+              <p>Receive an upfront estimate and choose a time that works for you.</p>
+            </article>
+            <span class="process-arrow" aria-hidden="true">→</span>
+            <article class="process-card reveal" data-delay="180">
+              <span class="process-number" aria-hidden="true">3</span>
+              <h3>We assemble it</h3>
+              <p>Araiza Assembly handles the setup so you can get back to your day.</p>
+            </article>
           </div>
+
+          <p class="process-note reveal">Do not see your item listed? Send a photo or product link and we will let you know if we can help.</p>
         </div>
       </section>
 
-      <section class="section about-section" id="about">
-        <div class="shell about-grid">
-          <div class="about-copy reveal">
-            <p class="eyebrow">About Araiza Assembly</p>
-            <h2>More room for the things you would rather be doing.</h2>
-            <p>Araiza Assembly is a locally operated furniture assembly service created to make furniture setup easier for people who do not have the tools, time, or patience for confusing instructions.</p>
-            <p>The job is simple: bring a straightforward quote, handle the furniture carefully, and leave you with a space that is ready to use.</p>
-            <div class="about-list"><span>Tools and hardware handled with care</span><span>Small builds considered case by case</span><span>Photos and links make quoting faster</span></div>
+      <section class="why-section" id="why">
+        <div class="shell why-layout">
+          <div class="why-intro reveal">
+            <h2>Why choose Araiza Assembly?</h2>
+            <p>Clear pricing, careful work, and local service that respects your time and home.</p>
           </div>
-          <figure class="about-figure reveal" data-delay="100">
+          <ul class="why-list reveal" data-delay="90">
+            <li>Fast scheduling</li>
+            <li>Fair upfront pricing</li>
+            <li>Careful workmanship</li>
+            <li>No confusing hourly surprises</li>
+            <li>Local service</li>
+            <li>Clean work area</li>
+            <li>Reliable communication</li>
+          </ul>
+          <p class="why-tagline reveal" data-delay="150">Quality assembly.<br /><em>Less stress.</em></p>
+        </div>
+      </section>
+
+      <section class="about-section" id="about">
+        <div class="shell about-card reveal">
+          <figure class="about-media">
             <img src="assets/araiza-assembly-detail.png" alt="Finished oak nightstand beside an organized tool roll and hardware tray" loading="lazy" />
-            <figcaption>Furniture setup should feel like progress, not a second job.</figcaption>
           </figure>
-        </div>
-      </section>
-
-      <section class="section area-section" id="area">
-        <div class="shell area-card reveal">
-          <div class="area-map-mark" aria-hidden="true"><span>NC</span><i></i><i></i><i></i></div>
-          <div class="area-copy">
-            <p class="eyebrow">Where we work</p>
-            <h2>Serving the Sandhills and nearby communities.</h2>
-            <p>Araiza Assembly serves Moore County, Fayetteville, Raeford, and surrounding areas in North Carolina. Nearby communities may also be available depending on distance and job size.</p>
-            <div class="area-tags"><span>Moore County</span><span>Fayetteville</span><span>Raeford</span><span>Nearby areas</span></div>
+          <div class="about-copy">
+            <p class="about-label">About Araiza Assembly</p>
+            <h2>Local help for the furniture you would rather not build.</h2>
+            <p>Araiza Assembly is a locally operated service for people who do not have the tools, time, or patience for confusing instructions.</p>
           </div>
-          <a class="button button-secondary area-cta" href="#contact">Check your location</a>
-        </div>
-      </section>
-
-      <section class="section quote-section" id="contact">
-        <div class="shell quote-layout">
-          <div class="quote-copy reveal">
-            <p class="eyebrow">Ready when you are</p>
-            <h2>Send the item. Get a clear next step.</h2>
-            <p>The fastest way to get a useful quote is a photo or product link. A few details help us price the job before we schedule.</p>
-            <div class="contact-details">
-              <a href="tel:+19105274800"><span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M6.7 3.7 9 3.1c.6-.2 1.2.1 1.5.7l1.1 2.7c.2.5.1 1.1-.3 1.5L10 9.4a15.3 15.3 0 0 0 4.6 4.6l1.4-1.3c.4-.4 1-.5 1.5-.3l2.7 1.1c.6.3.9.9.7 1.5l-.6 2.3c-.2.7-.8 1.2-1.5 1.2C10.9 18.5 5.5 13.1 5.5 6.2c0-.7.5-1.3 1.2-1.5Z" /></svg></span><span><small>Call or text</small><strong>910-527-4800</strong></span></a>
-              <div><span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m4 7 8 6 8-6" /></svg></span><span><small>Email</small><strong class="placeholder-text">Email coming soon</strong></span></div>
-              <div><span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M19 10.2c0 4.7-7 10.3-7 10.3S5 14.9 5 10.2a7 7 0 1 1 14 0Z" /><circle cx="12" cy="10" r="2.2" /></svg></span><span><small>Service area</small><strong>Moore County, Fayetteville, Raeford</strong></span></div>
-            </div>
-            <p class="contact-note">Prefer to talk? <a href="tel:+19105274800">Call 910-527-4800</a></p>
+          <div class="about-area">
+            <strong>Moore County, Fayetteville, and Raeford</strong>
+            <span>Nearby communities may also be available depending on distance and job size.</span>
           </div>
-
-          <form class="quote-form reveal" data-delay="100" id="quote-form">
-            <div class="form-heading"><span>Free quote request</span><small>Prototype form. No information is sent yet.</small></div>
-            <div class="form-grid">
-              <label><span>Name <b>*</b></span><input type="text" name="name" autocomplete="name" required /></label>
-              <label><span>Phone <b>*</b></span><input type="tel" name="phone" autocomplete="tel" required /></label>
-              <label><span>Email</span><input type="email" name="email" autocomplete="email" /></label>
-              <label><span>City or location</span><input type="text" name="location" autocomplete="address-level2" /></label>
-              <label class="full-field"><span>Furniture or item <b>*</b></span><input type="text" name="item" placeholder="Example: queen platform bed" required /></label>
-              <label class="full-field"><span>Store or product link</span><input type="url" name="product-link" placeholder="https://" /></label>
-              <label class="full-field"><span>Message or details</span><textarea name="details" rows="4" placeholder="Tell us what you need assembled, how many items, and anything we should know."></textarea></label>
-              <label class="upload-field full-field"><span>Optional photo</span><input type="file" id="photo-upload" name="photo" accept="image/*" /><span class="upload-control"><span>Choose a photo</span><small id="file-name">No file chosen</small></span></label>
-            </div>
-            <button class="button button-primary form-submit" type="submit">Request my free quote <span aria-hidden="true">↗</span></button>
-            <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
-          </form>
         </div>
       </section>
 
-      <section class="final-cta-section">
-        <div class="shell final-cta reveal">
-          <div><p class="eyebrow">Make space for your weekend</p><h2>Skip the instructions. We will build it.</h2><p>Send Araiza Assembly a photo or link to your furniture and get a straightforward quote.</p></div>
-          <div class="final-actions"><a class="button button-light" href="#contact">Get a free quote <span aria-hidden="true">↗</span></a><a class="final-phone" href="tel:+19105274800">Call 910-527-4800</a></div>
+      <section class="contact-section" id="contact">
+        <div class="shell contact-inner">
+          <div class="contact-copy reveal">
+            <p class="contact-label">Ready to get started?</p>
+            <h2>Skip the instructions. We will assemble it.</h2>
+            <p>Send a photo or product link and get a straightforward quote.</p>
+          </div>
+          <div class="contact-actions reveal" data-delay="90">
+            <a class="button button-light quote-trigger" href="#quote-dialog" data-quote-trigger>Get a free quote <span aria-hidden="true">↗</span></a>
+            <a class="contact-phone" href="tel:+19105274800">Call or text 910-527-4800</a>
+            <p class="contact-pricing">$50 minimum service call. Most jobs are quoted flat-rate before scheduling.</p>
+          </div>
+        </div>
+        <div class="shell contact-bar reveal" data-delay="150">
+          <div><span>Call or text</span><strong>910-527-4800</strong></div>
+          <div><span>Email</span><strong class="placeholder-text">Email coming soon</strong></div>
+          <div><span>Service area</span><strong>Moore County, Fayetteville, Raeford</strong></div>
         </div>
       </section>
     </main>
 
     <footer class="site-footer">
-      <div class="shell footer-grid">
-        <div class="footer-brand"><a class="brand brand-footer" href="#top"><span class="brand-mark" aria-hidden="true"><span>AA</span></span><span class="brand-name"><strong>Araiza</strong><small>ASSEMBLY</small></span></a><p>Furniture assembly and small furniture building.</p></div>
-        <div class="footer-column"><span class="footer-label">Service area</span><p>Moore County<br />Fayetteville<br />Raeford and nearby areas</p></div>
-        <div class="footer-column"><span class="footer-label">Contact</span><a href="tel:+19105274800">910-527-4800</a><span class="placeholder-text">Email coming soon</span></div>
-        <div class="footer-column footer-links"><span class="footer-label">Explore</span><a href="#contact">Contact</a><a href="#privacy-note">Privacy</a></div>
+      <div class="shell footer-inner">
+        <div class="footer-brand">
+          <a class="brand brand-footer" href="#top"><span class="brand-mark" aria-hidden="true"><span>A</span></span><span class="brand-name"><strong>Araiza</strong><small>ASSEMBLY</small></span></a>
+          <p>Furniture assembly and small furniture building.</p>
+        </div>
+        <div class="footer-area"><span>Serving</span><strong>Moore County<br />Fayetteville<br />Raeford and nearby areas</strong></div>
+        <div class="footer-contact"><span>Contact</span><a href="tel:+19105274800">910-527-4800</a><span class="placeholder-text">Email coming soon</span></div>
+        <div class="footer-links"><a href="#contact">Contact</a><a href="#privacy-note">Privacy</a></div>
       </div>
       <div class="shell footer-bottom"><span>© <span id="year"></span> Araiza Assembly</span><span id="privacy-note">Privacy details will be added before launch.</span></div>
     </footer>
 
-    <div class="mobile-sticky-actions" aria-label="Quick contact actions"><a href="tel:+19105274800">Call</a><a href="#contact">Get a quote</a></div>
+    <div class="mobile-sticky-actions" aria-label="Quick contact actions"><a href="tel:+19105274800">Call</a><a class="quote-trigger" href="#quote-dialog" data-quote-trigger>Get a quote</a></div>
+
+    <dialog class="quote-dialog" id="quote-dialog" aria-labelledby="quote-dialog-title">
+      <div class="dialog-shell">
+        <button class="dialog-close" type="button" data-close-quote aria-label="Close quote form">×</button>
+        <div class="dialog-heading">
+          <p class="about-label">Free quote request</p>
+          <h2 id="quote-dialog-title">Tell us what needs assembling.</h2>
+          <p>A photo or product link helps us give you a useful estimate before scheduling.</p>
+        </div>
+        <form class="quote-form" id="quote-form">
+          <div class="form-grid">
+            <label><span>Name <b>*</b></span><input type="text" name="name" autocomplete="name" required /></label>
+            <label><span>Phone <b>*</b></span><input type="tel" name="phone" autocomplete="tel" required /></label>
+            <label><span>Email</span><input type="email" name="email" autocomplete="email" /></label>
+            <label><span>City or location</span><input type="text" name="location" autocomplete="address-level2" /></label>
+            <label class="full-field"><span>Furniture or item <b>*</b></span><input type="text" name="item" placeholder="Example: queen platform bed" required /></label>
+            <label class="full-field"><span>Store or product link</span><input type="url" name="product-link" placeholder="https://" /></label>
+            <label class="full-field"><span>Message or details</span><textarea name="details" rows="3" placeholder="Tell us what you need assembled and how many items."></textarea></label>
+            <label class="upload-field full-field"><span>Optional photo</span><input type="file" id="photo-upload" name="photo" accept="image/*" /><span class="upload-control"><span>Choose a photo</span><small id="file-name">No file chosen</small></span></label>
+          </div>
+          <button class="button button-primary form-submit" type="submit">Request my free quote <span aria-hidden="true">↗</span></button>
+          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </dialog>
+
     <script src="script.js"></script>
   </body>
 </html>

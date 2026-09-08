@@ -10,11 +10,11 @@ This is intentionally a dependency-free static prototype.
 python3 -m http.server 4173
 ```
 
-Open `http://localhost:4173` in a browser. The quote form is a visual prototype and does not send or store submissions. The phone links use `tel:+19105274800`.
+Open `http://localhost:4173` in a browser. The quote form opens in a compact modal and does not send or store submissions. The phone links use `tel:+19105274800`.
 
 ## Design read
 
-This is a trust-first local-service landing page for homeowners, renters, and people moving into a new space. It uses a warm paper canvas, deep ink typography, a single muted coral action color, structured service cards, and restrained motion. The structure keeps the information-rich feel of the supplied reference while giving the page more room to breathe on mobile.
+This is a trust-first local-service landing page for homeowners, renters, and people moving into a new space. It uses a white, navy, blue, and pink visual system, one strong split hero, a compact service summary, a three-step process, trust points, a short about strip, and a focused contact footer. Detailed quote intake stays available in a modal so the homepage remains quick to scan.
 
 The photos in `assets/` were generated specifically for this prototype. They contain no business claims, customer faces, logos, or reviews.
 
