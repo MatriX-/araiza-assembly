@@ -234,24 +234,54 @@
     <dialog class="quote-dialog" id="quote-dialog" aria-labelledby="quote-dialog-title">
       <div class="dialog-shell">
         <button class="dialog-close" type="button" data-close-quote aria-label="Close quote form">×</button>
-        <div class="dialog-heading">
-          <p class="about-label">Free quote request</p>
-          <h2 id="quote-dialog-title">Tell us what needs assembling.</h2>
-          <p>A photo or product link helps us give you a useful estimate before scheduling.</p>
-        </div>
-        <form class="quote-form" id="quote-form">
-          <div class="form-grid">
-            <label><span>Name <b>*</b></span><input type="text" name="name" autocomplete="name" required /></label>
-            <label><span>Phone <b>*</b></span><input type="tel" name="phone" autocomplete="tel" required /></label>
-            <label><span>Email</span><input type="email" name="email" autocomplete="email" /></label>
-            <label><span>City or location</span><input type="text" name="location" autocomplete="address-level2" /></label>
-            <label class="full-field"><span>Furniture or item <b>*</b></span><input type="text" name="item" placeholder="Example: queen platform bed" required /></label>
-            <label class="full-field"><span>Store or product link</span><input type="url" name="product-link" placeholder="https://" /></label>
-            <label class="full-field"><span>Message or details</span><textarea name="details" rows="3" placeholder="Tell us what you need assembled and how many items."></textarea></label>
-            <label class="upload-field full-field"><span>Optional photo</span><input type="file" id="photo-upload" name="photo" accept="image/*" /><span class="upload-control"><span>Choose a photo</span><small id="file-name">No file chosen</small></span></label>
+        <form id="quote-form">
+          <div class="quote-step" data-quote-step="1">
+            <div class="dialog-heading">
+              <p class="about-label">Free quote request</p>
+              <h2 id="quote-dialog-title">Let's get started.</h2>
+              <p>Tell us how to reach you, then share what you need assembled.</p>
+            </div>
+            <div class="quote-form">
+              <div class="form-grid">
+              <label class="full-field"><span>First and last name <b>*</b></span><input type="text" name="customer-name" autocomplete="name" required /></label>
+              <fieldset class="contact-method full-field">
+                <legend>Preferred method of contact <b>*</b></legend>
+                <div class="contact-options">
+                  <label class="contact-option"><input type="radio" name="contact-method" value="email" required /><span>Email</span></label>
+                  <label class="contact-option"><input type="radio" name="contact-method" value="phone" required /><span>Phone</span></label>
+                </div>
+                <p class="contact-helper" id="contact-helper">Choose email or phone to show the right contact field.</p>
+              </fieldset>
+              <label class="full-field contact-value-field" id="contact-value-field" hidden><span id="contact-value-label">Contact information <b>*</b></span><input id="contact-value" type="text" name="contact-value" disabled required /></label>
+              <label class="full-field"><span>Zip code <b>*</b></span><input type="text" name="zip-code" inputmode="numeric" autocomplete="postal-code" pattern="[0-9]{5}(-[0-9]{4})?" placeholder="28387" required /></label>
+              </div>
+              <button class="button button-primary form-submit" data-next-step type="button">Continue <span aria-hidden="true">↗</span></button>
+            </div>
           </div>
-          <button class="button button-primary form-submit" type="submit">Request my free quote <span aria-hidden="true">↗</span></button>
-          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+
+          <div class="quote-step" data-quote-step="2" hidden>
+            <div class="dialog-heading">
+              <p class="about-label">Furniture details</p>
+              <h2 id="quote-dialog-step2-title">Let us put it together.</h2>
+              <p>Add a photo, screenshot, or product link for each item. Add another item if needed.</p>
+            </div>
+            <div class="quote-form">
+              <div class="item-list" id="item-list">
+              <article class="item-card" data-item-card>
+                <div class="item-card-header"><strong data-item-number>Item 1</strong><button class="item-card-remove" data-remove-item type="button" hidden>Remove</button></div>
+                <label><span>Furniture or item <b>*</b></span><input data-item-name id="item-name-1" type="text" name="items[0][name]" placeholder="Example: queen platform bed" required /></label>
+                <label class="upload-field"><span>Add a photo or screenshot</span><input data-item-photo id="item-photo-1" type="file" name="items[0][photo]" accept="image/*" /><span class="upload-control"><span>Choose a photo</span><small data-file-name>No file chosen</small></span></label>
+                <label><span>Product link (optional)</span><input data-item-link id="item-link-1" type="url" name="items[0][link]" placeholder="https://" /></label>
+              </article>
+              </div>
+              <button class="add-item" data-add-item type="button">Add another item <span aria-hidden="true">+</span></button>
+              <div class="quote-step-actions">
+                <button class="button button-quiet" data-prev-step type="button">Back</button>
+                <button class="button button-primary form-submit" type="submit">Request my free quote <span aria-hidden="true">↗</span></button>
+              </div>
+              <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+            </div>
+          </div>
         </form>
       </div>
     </dialog>
