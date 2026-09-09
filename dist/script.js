@@ -1,5 +1,7 @@
 document.documentElement.classList.add("js");
 
+const FORM_EMAIL_ENDPOINT = "https://formsubmit.co/ajax/Araizacrystal6@gmail.com";
+
 const buildSlideshow = document.querySelector("[data-build-slideshow]");
 const buildSlides = buildSlideshow ? [...buildSlideshow.querySelectorAll("[data-build-slide]")] : [];
 const buildDots = buildSlideshow ? [...buildSlideshow.querySelectorAll("[data-build-dot]")] : [];
@@ -282,7 +284,7 @@ nextStepButton?.addEventListener("click", () => {
   if (validateStep(1)) showQuoteStep(2, "[data-item-name]");
 });
 previousStepButton?.addEventListener("click", () => showQuoteStep(1, 'input[name="customer-name"]'));
-function buildSmsRequest() {
+function buildRequestMessage() {
   const valueFor = (selector) => quoteForm?.querySelector(selector)?.value.trim() || "";
   const selectedMethod = contactMethods.find((method) => method.checked)?.value || "not specified";
   const contactDetail = contactValue?.value.trim() || "not provided";
@@ -305,19 +307,51 @@ function buildSmsRequest() {
   return lines.join("\n");
 }
 
-quoteForm?.addEventListener("submit", (event) => {
-  event.preventDefault();
-  if (activeQuoteStep !== 2 || !validateStep(2)) return;
-  const submitButton = quoteForm.querySelector("[type=submit]");
-  submitButton.disabled = true;
-  submitButton.textContent = "Opening text…";
-  const smsUrl = `sms:+19105274800?&body=${encodeURIComponent(buildSmsRequest())}`;
-  if (formStatus) formStatus.textContent = "Your request is ready. Tap Send in your text app to finish.";
+function showSmsFallback(message) {
+  const smsUrl = `sms:+19105274800?&body=${encodeURIComponent(message)}`;
+  if (formStatus) formStatus.textContent = "Email delivery was unavailable. Your request is ready to text instead.";
   if (smsRequestLink) {
     smsRequestLink.href = smsUrl;
     smsRequestLink.hidden = false;
   }
-  window.setTimeout(() => { window.location.href = smsUrl; }, 80);
+}
+
+quoteForm?.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  if (activeQuoteStep !== 2 || !validateStep(2)) return;
+  const submitButton = quoteForm.querySelector("[type=submit]");
+  submitButton.disabled = true;
+  submitButton.textContent = "Sending…";
+  const requestMessage = buildRequestMessage();
+  const selectedMethod = contactMethods.find((method) => method.checked)?.value;
+  const contactDetail = contactValue?.value.trim() || "";
+  const formData = new FormData(quoteForm);
+  formData.append("_subject", "New Araiza Assembly estimate request");
+  formData.append("_template", "table");
+  formData.append("_url", window.location.href.split("#")[0]);
+  formData.append("message", requestMessage);
+  formData.append("preferred_contact_method", selectedMethod || "not specified");
+  if (selectedMethod === "email" && contactDetail) {
+    formData.append("email", contactDetail);
+    formData.append("_replyto", contactDetail);
+  }
+
+  try {
+    const response = await fetch(FORM_EMAIL_ENDPOINT, {
+      method: "POST",
+      headers: { Accept: "application/json" },
+      body: formData
+    });
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok || result.success === false || result.success === "false") throw new Error("FormSubmit request failed");
+    submitButton.textContent = "Sent successfully";
+    if (formStatus) formStatus.textContent = "Request sent. We will follow up by your preferred method.";
+    if (smsRequestLink) smsRequestLink.hidden = true;
+  } catch (error) {
+    submitButton.disabled = false;
+    submitButton.textContent = "Try email again";
+    showSmsFallback(requestMessage);
+  }
 });
 
 const year = document.querySelector("#year");
