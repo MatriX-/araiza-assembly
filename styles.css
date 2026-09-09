@@ -184,8 +184,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .footer-links a { min-height: 28px; display: inline-flex; align-items: center; }
 .footer-bottom { display: flex; justify-content: space-between; gap: 20px; margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--ink-faint); font-size: 10px; }
 
-.mobile-sticky-actions { display: none; }
-
 .quote-dialog { width: min(600px, calc(100% - 30px)); max-height: min(850px, calc(100dvh - 30px)); margin: auto; padding: 0; border: 0; border-radius: 22px; background: var(--white); color: var(--ink-strong); box-shadow: 0 24px 70px rgba(13, 49, 81, 0.28); }
 .quote-dialog::backdrop { background: rgba(13, 49, 81, 0.58); backdrop-filter: blur(3px); }
 .dialog-shell { position: relative; max-height: min(850px, calc(100dvh - 30px)); overflow-y: auto; padding: 33px; }
@@ -313,7 +311,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   .contact-copy h2 { font-size: clamp(38px, 11vw, 60px); }
   .contact-copy > p:last-child { font-size: 16px; }
   .contact-actions { align-items: stretch; }
-  .contact-actions .button { width: 100%; }
   .contact-phone { align-self: center; }
   .contact-pricing { max-width: 420px; align-self: center; text-align: center; }
   .contact-bar { grid-template-columns: 1fr; gap: 15px; margin-top: 38px; }
@@ -323,10 +320,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   .footer-brand { grid-column: 1 / -1; }
   .footer-links { justify-items: start; gap: 8px; }
   .footer-bottom { display: grid; gap: 7px; }
-  .mobile-sticky-actions { position: fixed; right: 0; bottom: 0; left: 0; z-index: 11; display: grid; grid-template-columns: 1fr 1.25fr; gap: 8px; padding: 8px 12px calc(8px + env(safe-area-inset-bottom)); background: rgba(13, 49, 81, 0.97); box-shadow: 0 -10px 25px rgba(13, 49, 81, 0.16); }
-  .mobile-sticky-actions a { min-height: 42px; display: grid; place-items: center; border-radius: 10px; color: var(--white); font-size: 13px; font-weight: 800; }
-  .mobile-sticky-actions a:last-child { background: var(--accent); color: var(--ink-strong); }
-
   .gallery-hero { padding: 40px 0 35px; }
   .gallery-hero p { font-size: 16px; }
   .gallery-projects { padding: 35px 0 56px; }
