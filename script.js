@@ -1,5 +1,49 @@
 document.documentElement.classList.add("js");
 
+const buildSlideshow = document.querySelector("[data-build-slideshow]");
+const buildSlides = buildSlideshow ? [...buildSlideshow.querySelectorAll("[data-build-slide]")] : [];
+const buildDots = buildSlideshow ? [...buildSlideshow.querySelectorAll("[data-build-dot]")] : [];
+
+if (buildSlideshow && buildSlides.length > 1) {
+  let activeBuild = 0;
+  let slideshowTimer;
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  const showBuild = (index) => {
+    activeBuild = (index + buildSlides.length) % buildSlides.length;
+    buildSlides.forEach((slide, slideIndex) => {
+      const isActive = slideIndex === activeBuild;
+      slide.classList.toggle("is-active", isActive);
+      slide.setAttribute("aria-hidden", String(!isActive));
+    });
+    buildDots.forEach((dot, dotIndex) => dot.setAttribute("aria-current", String(dotIndex === activeBuild)));
+  };
+  const stopSlideshow = () => {
+    if (!slideshowTimer) return;
+    window.clearInterval(slideshowTimer);
+    slideshowTimer = undefined;
+  };
+  const startSlideshow = () => {
+    stopSlideshow();
+    if (reducedMotion.matches || document.hidden) return;
+    slideshowTimer = window.setInterval(() => showBuild(activeBuild + 1), 4800);
+  };
+
+  buildDots.forEach((dot, index) => dot.addEventListener("click", () => {
+    showBuild(index);
+    startSlideshow();
+  }));
+  buildSlideshow.addEventListener("mouseenter", stopSlideshow);
+  buildSlideshow.addEventListener("mouseleave", startSlideshow);
+  buildSlideshow.addEventListener("focusin", stopSlideshow);
+  buildSlideshow.addEventListener("focusout", (event) => {
+    if (!buildSlideshow.contains(event.relatedTarget)) startSlideshow();
+  });
+  document.addEventListener("visibilitychange", () => (document.hidden ? stopSlideshow() : startSlideshow()));
+  showBuild(0);
+  startSlideshow();
+}
+
 const menuToggle = document.querySelector(".menu-toggle");
 const mobileMenu = document.querySelector("#mobile-menu");
 const mobileMenuLinks = mobileMenu ? mobileMenu.querySelectorAll("a") : [];
@@ -117,6 +161,28 @@ function resetItemList() {
   syncItemCards();
 }
 
+function updatePhotoPreview(input) {
+  const uploadField = input.closest(".upload-field");
+  const fileName = uploadField?.querySelector("[data-file-name]");
+  const preview = uploadField?.querySelector("[data-file-preview]");
+  const file = input.files?.[0];
+  if (fileName) fileName.textContent = file?.name || "No file chosen";
+  if (!preview) return;
+  if (!file) {
+    preview.hidden = true;
+    preview.removeAttribute("src");
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.addEventListener("load", () => {
+    if (input.files?.[0] !== file || typeof reader.result !== "string") return;
+    preview.src = reader.result;
+    preview.hidden = false;
+  });
+  reader.readAsDataURL(file);
+}
+
 function resetQuoteForm() {
   quoteForm?.reset();
   if (formStatus) formStatus.textContent = "";
@@ -165,6 +231,11 @@ quoteDialog?.addEventListener("click", (event) => {
     if (!newCard || !itemList) return;
     newCard.querySelectorAll("input").forEach((input) => { input.value = ""; });
     newCard.querySelector("[data-file-name]").textContent = "No file chosen";
+    const newPreview = newCard.querySelector("[data-file-preview]");
+    if (newPreview) {
+      newPreview.hidden = true;
+      newPreview.removeAttribute("src");
+    }
     itemList.append(newCard);
     syncItemCards();
     newCard.querySelector("[data-item-name]")?.focus();
@@ -182,8 +253,7 @@ contactMethods.forEach((method) => method.addEventListener("change", updateConta
 quoteDialog?.addEventListener("change", (event) => {
   const input = event.target;
   if (!(input instanceof HTMLInputElement) || !input.matches("[data-item-photo]")) return;
-  const fileName = input.closest(".upload-field")?.querySelector("[data-file-name]");
-  if (fileName) fileName.textContent = input.files?.[0]?.name || "No file chosen";
+  updatePhotoPreview(input);
 });
 
 nextStepButton?.addEventListener("click", () => {
