@@ -171,6 +171,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .brand-footer { margin-bottom: 10px; }
 .brand-footer .brand-logo { width: 160px; }
 .footer-brand p { max-width: 250px; margin: 0; color: var(--ink-faint); font-size: 12px; }
+.footer-social { display: inline-flex; margin-top: 12px; color: var(--blue); font-size: 12px; font-weight: 800; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.footer-social:hover, .footer-social:focus-visible { color: var(--accent-deep); }
 .footer-area { display: grid; align-content: start; gap: 5px; }
 .footer-area > span { color: var(--ink-faint); font-size: 10px; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase; }
 .footer-area strong { color: var(--ink-soft); font-size: 12px; line-height: 1.45; }
