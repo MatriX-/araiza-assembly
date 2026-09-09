@@ -152,16 +152,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .about-area span { color: var(--ink-soft); font-size: 13px; line-height: 1.45; }
 
 .contact-section { padding: 62px 0 30px; background: var(--ink-strong); }
-.contact-inner { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.8fr); align-items: center; gap: 60px; }
+.contact-inner { display: block; }
 .contact-copy h2 { max-width: 670px; margin-bottom: 13px; color: var(--white); font-size: clamp(38px, 5vw, 65px); }
 .contact-copy > p:last-child { margin: 0; color: rgba(255, 255, 255, 0.75); font-size: 17px; }
 .contact-label { margin-bottom: 15px; color: var(--accent-soft); }
-.contact-actions { display: flex; flex-direction: column; align-items: flex-start; gap: 13px; }
-.button-light { background: var(--white); color: var(--ink-strong); }
-.button-light:hover { background: var(--accent-soft); color: var(--ink-strong); }
 .contact-phone { color: var(--accent-soft); font-size: 15px; font-weight: 800; }
 .contact-phone:hover, .contact-phone:focus-visible { color: var(--white); }
-.contact-pricing { max-width: 280px; margin: 5px 0 0; color: rgba(255, 255, 255, 0.67); font-size: 12px; line-height: 1.45; }
 .contact-bar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 52px; padding-top: 21px; border-top: 1px solid rgba(255, 255, 255, 0.2); }
 .contact-bar div { display: grid; gap: 3px; }
 .contact-bar div + div { padding-left: 25px; border-left: 1px solid rgba(255, 255, 255, 0.2); }
@@ -307,12 +303,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   .about-area { grid-column: 1 / -1; padding: 16px 0 0; border-top: 1px solid rgba(18, 63, 102, 0.17); border-left: 0; }
 
   .contact-section { padding: 50px 0 26px; }
-  .contact-inner { grid-template-columns: 1fr; gap: 30px; }
   .contact-copy h2 { font-size: clamp(38px, 11vw, 60px); }
   .contact-copy > p:last-child { font-size: 16px; }
-  .contact-actions { align-items: stretch; }
   .contact-phone { align-self: center; }
-  .contact-pricing { max-width: 420px; align-self: center; text-align: center; }
   .contact-bar { grid-template-columns: 1fr; gap: 15px; margin-top: 38px; }
   .contact-bar div + div { padding-top: 15px; padding-left: 0; border-top: 1px solid rgba(255, 255, 255, 0.2); border-left: 0; }
 
