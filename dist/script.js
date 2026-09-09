@@ -213,7 +213,7 @@ function resetQuoteForm() {
   const submitButton = quoteForm?.querySelector("[type=submit]");
   if (submitButton) {
     submitButton.disabled = false;
-    submitButton.innerHTML = 'Free Estimate <span aria-hidden="true">↗</span>';
+    submitButton.textContent = "Free Estimate";
   }
   resetItemList();
   updateContactField();
