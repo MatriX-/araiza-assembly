@@ -33,6 +33,23 @@ if (buildSlideshow && buildSlides.length > 1) {
     showBuild(index);
     startSlideshow();
   }));
+  let touchStartX = null;
+  buildSlideshow.addEventListener("touchstart", (event) => {
+    if (event.touches.length !== 1) return;
+    touchStartX = event.touches[0].clientX;
+    stopSlideshow();
+  }, { passive: true });
+  buildSlideshow.addEventListener("touchend", (event) => {
+    if (touchStartX === null) return;
+    const distance = event.changedTouches[0].clientX - touchStartX;
+    touchStartX = null;
+    if (Math.abs(distance) >= 40) showBuild(activeBuild + (distance < 0 ? 1 : -1));
+    startSlideshow();
+  }, { passive: true });
+  buildSlideshow.addEventListener("touchcancel", () => {
+    touchStartX = null;
+    startSlideshow();
+  }, { passive: true });
   buildSlideshow.addEventListener("mouseenter", stopSlideshow);
   buildSlideshow.addEventListener("mouseleave", startSlideshow);
   buildSlideshow.addEventListener("focusin", stopSlideshow);
