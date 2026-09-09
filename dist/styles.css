@@ -64,7 +64,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .button { min-height: 50px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 13px 22px; border: 1px solid transparent; border-radius: 999px; font-size: 14px; font-weight: 800; letter-spacing: -0.01em; transition: transform 180ms var(--ease), background-color 180ms var(--ease), color 180ms var(--ease), border-color 180ms var(--ease); }
 .button:hover { transform: translateY(-2px); }
 .button:active { transform: translateY(0) scale(0.98); }
-.button-primary { background: var(--accent); color: var(--ink-strong); box-shadow: 0 10px 22px rgba(223, 0, 111, 0.18); }
+.button-primary { background: var(--accent); color: var(--white); box-shadow: 0 10px 22px rgba(223, 0, 111, 0.18); }
 .button-primary:hover { background: var(--accent-deep); color: var(--white); }
 .button-secondary { border-color: var(--blue); background: var(--white); color: var(--ink-strong); }
 .button-secondary:hover { border-color: var(--ink-strong); background: var(--sky); }
