@@ -106,6 +106,7 @@ const contactHelper = document.querySelector("#contact-helper");
 const itemList = document.querySelector("#item-list");
 const initialItemCard = itemList?.querySelector("[data-item-card]")?.cloneNode(true);
 const formStatus = document.querySelector("#form-status");
+const smsRequestLink = document.querySelector("#sms-request-link");
 const nextStepButton = quoteDialog?.querySelector("[data-next-step]");
 const previousStepButton = quoteDialog?.querySelector("[data-prev-step]");
 let activeQuoteStep = 1;
@@ -203,6 +204,10 @@ function updatePhotoPreview(input) {
 function resetQuoteForm() {
   quoteForm?.reset();
   if (formStatus) formStatus.textContent = "";
+  if (smsRequestLink) {
+    smsRequestLink.hidden = true;
+    smsRequestLink.removeAttribute("href");
+  }
   const submitButton = quoteForm?.querySelector("[type=submit]");
   if (submitButton) {
     submitButton.disabled = false;
@@ -277,16 +282,42 @@ nextStepButton?.addEventListener("click", () => {
   if (validateStep(1)) showQuoteStep(2, "[data-item-name]");
 });
 previousStepButton?.addEventListener("click", () => showQuoteStep(1, 'input[name="customer-name"]'));
+function buildSmsRequest() {
+  const valueFor = (selector) => quoteForm?.querySelector(selector)?.value.trim() || "";
+  const selectedMethod = contactMethods.find((method) => method.checked)?.value || "not specified";
+  const contactDetail = contactValue?.value.trim() || "not provided";
+  const lines = [
+    "Hi Araiza Assembly! I would like a free estimate.",
+    `Name: ${valueFor('[name="customer-name"]')}`,
+    `Preferred reply: ${selectedMethod} — ${contactDetail}`,
+    `ZIP code: ${valueFor('[name="zip-code"]')}`,
+    "",
+    "Items:"
+  ];
+
+  itemList?.querySelectorAll("[data-item-card]").forEach((card, index) => {
+    const itemName = card.querySelector("[data-item-name]")?.value.trim() || "Item details not provided";
+    const itemLink = card.querySelector("[data-item-link]")?.value.trim();
+    const hasPhoto = Boolean(card.querySelector("[data-item-photo]")?.files?.length);
+    lines.push(`${index + 1}. ${itemName}${itemLink ? ` — ${itemLink}` : ""}${hasPhoto ? " — photo selected; attach it to this text" : ""}`);
+  });
+
+  return lines.join("\n");
+}
+
 quoteForm?.addEventListener("submit", (event) => {
   event.preventDefault();
   if (activeQuoteStep !== 2 || !validateStep(2)) return;
   const submitButton = quoteForm.querySelector("[type=submit]");
   submitButton.disabled = true;
-  submitButton.textContent = "Request captured";
-  formStatus.textContent = "Prototype only: nothing was sent. For now, call or text 910-527-4800.";
-  window.setTimeout(() => {
-    resetQuoteForm();
-  }, 2600);
+  submitButton.textContent = "Opening text…";
+  const smsUrl = `sms:+19105274800?&body=${encodeURIComponent(buildSmsRequest())}`;
+  if (formStatus) formStatus.textContent = "Your request is ready. Tap Send in your text app to finish.";
+  if (smsRequestLink) {
+    smsRequestLink.href = smsUrl;
+    smsRequestLink.hidden = false;
+  }
+  window.setTimeout(() => { window.location.href = smsUrl; }, 80);
 });
 
 const year = document.querySelector("#year");

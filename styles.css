@@ -240,6 +240,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .button-quiet:hover { border-color: var(--accent-deep); background: var(--white); }
 .form-submit { width: 100%; margin-top: 18px; }
 .form-status { min-height: 18px; margin: 11px 0 0; color: var(--accent-deep); font-size: 12px; line-height: 1.4; }
+.sms-request-link { display: inline-flex; margin-top: 4px; color: var(--accent-deep); font-size: 12px; font-weight: 800; text-decoration: underline; text-underline-offset: 3px; }
+.sms-request-link[hidden] { display: none; }
 
 .js .reveal { opacity: 0; transform: translateY(18px); }
 .js .reveal.is-visible { opacity: 1; transform: translateY(0); transition: opacity 600ms var(--ease), transform 600ms var(--ease); transition-delay: var(--delay, 0ms); }
