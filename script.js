@@ -2,67 +2,6 @@ document.documentElement.classList.add("js");
 
 const FORM_EMAIL_ENDPOINT = "https://formsubmit.co/ajax/Araizacrystal6@gmail.com";
 
-const buildSlideshow = document.querySelector("[data-build-slideshow]");
-const buildSlides = buildSlideshow ? [...buildSlideshow.querySelectorAll("[data-build-slide]")] : [];
-const buildDots = buildSlideshow ? [...buildSlideshow.querySelectorAll("[data-build-dot]")] : [];
-
-if (buildSlideshow && buildSlides.length > 1) {
-  let activeBuild = 0;
-  let slideshowTimer;
-  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-
-  const showBuild = (index) => {
-    activeBuild = (index + buildSlides.length) % buildSlides.length;
-    buildSlides.forEach((slide, slideIndex) => {
-      const isActive = slideIndex === activeBuild;
-      slide.classList.toggle("is-active", isActive);
-      slide.setAttribute("aria-hidden", String(!isActive));
-    });
-    buildDots.forEach((dot, dotIndex) => dot.setAttribute("aria-current", String(dotIndex === activeBuild)));
-  };
-  const stopSlideshow = () => {
-    if (!slideshowTimer) return;
-    window.clearInterval(slideshowTimer);
-    slideshowTimer = undefined;
-  };
-  const startSlideshow = () => {
-    stopSlideshow();
-    if (reducedMotion.matches || document.hidden) return;
-    slideshowTimer = window.setInterval(() => showBuild(activeBuild + 1), 4800);
-  };
-
-  buildDots.forEach((dot, index) => dot.addEventListener("click", () => {
-    showBuild(index);
-    startSlideshow();
-  }));
-  let touchStartX = null;
-  buildSlideshow.addEventListener("touchstart", (event) => {
-    if (event.touches.length !== 1) return;
-    touchStartX = event.touches[0].clientX;
-    stopSlideshow();
-  }, { passive: true });
-  buildSlideshow.addEventListener("touchend", (event) => {
-    if (touchStartX === null) return;
-    const distance = event.changedTouches[0].clientX - touchStartX;
-    touchStartX = null;
-    if (Math.abs(distance) >= 40) showBuild(activeBuild + (distance < 0 ? 1 : -1));
-    startSlideshow();
-  }, { passive: true });
-  buildSlideshow.addEventListener("touchcancel", () => {
-    touchStartX = null;
-    startSlideshow();
-  }, { passive: true });
-  buildSlideshow.addEventListener("mouseenter", stopSlideshow);
-  buildSlideshow.addEventListener("mouseleave", startSlideshow);
-  buildSlideshow.addEventListener("focusin", stopSlideshow);
-  buildSlideshow.addEventListener("focusout", (event) => {
-    if (!buildSlideshow.contains(event.relatedTarget)) startSlideshow();
-  });
-  document.addEventListener("visibilitychange", () => (document.hidden ? stopSlideshow() : startSlideshow()));
-  showBuild(0);
-  startSlideshow();
-}
-
 const menuToggle = document.querySelector(".menu-toggle");
 const mobileMenu = document.querySelector("#mobile-menu");
 const mobileMenuLinks = mobileMenu ? mobileMenu.querySelectorAll("a") : [];
