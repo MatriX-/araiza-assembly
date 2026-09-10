@@ -47,6 +47,8 @@ const contactHelper = document.querySelector("#contact-helper");
 const itemList = document.querySelector("#item-list");
 const initialItemCard = itemList?.querySelector("[data-item-card]")?.cloneNode(true);
 const formStatus = document.querySelector("#form-status");
+const formStatusMessage = document.querySelector("[data-form-status-message]");
+const dismissFormStatusButton = document.querySelector("[data-dismiss-form-status]");
 const smsRequestLink = document.querySelector("#sms-request-link");
 const quoteMessageField = document.querySelector("#quote-message");
 const quotePreferredContactField = document.querySelector("#quote-preferred-contact-method");
@@ -112,7 +114,7 @@ function syncItemCards() {
     const itemLink = card.querySelector("[data-item-link]");
     itemName.name = `items[${index}][name]`;
     itemName.id = `item-name-${itemNumber}`;
-    itemPhoto.name = `items[${index}][photo]`;
+    itemPhoto.name = `item_${itemNumber}_photo`;
     itemPhoto.id = `item-photo-${itemNumber}`;
     itemLink.name = `items[${index}][link]`;
     card.querySelector("[data-remove-item]").hidden = cards.length === 1;
@@ -130,7 +132,7 @@ function updatePhotoPreview(input) {
   const fileName = uploadField?.querySelector("[data-file-name]");
   const preview = uploadField?.querySelector("[data-file-preview]");
   const file = input.files?.[0];
-  if (fileName) fileName.textContent = file?.name || "No file chosen";
+  if (fileName) fileName.textContent = file?.name || "Optional";
   if (!preview) return;
   if (!file) {
     preview.hidden = true;
@@ -149,7 +151,7 @@ function updatePhotoPreview(input) {
 
 function resetQuoteForm() {
   quoteForm?.reset();
-  if (formStatus) formStatus.textContent = "";
+  clearFormStatus();
   if (smsRequestLink) {
     smsRequestLink.hidden = true;
     smsRequestLink.removeAttribute("href");
@@ -198,7 +200,7 @@ quoteDialog?.addEventListener("click", (event) => {
     const newCard = itemList?.querySelector("[data-item-card]")?.cloneNode(true);
     if (!newCard || !itemList) return;
     newCard.querySelectorAll("input").forEach((input) => { input.value = ""; });
-    newCard.querySelector("[data-file-name]").textContent = "No file chosen";
+    newCard.querySelector("[data-file-name]").textContent = "Optional";
     const newPreview = newCard.querySelector("[data-file-preview]");
     if (newPreview) {
       newPreview.hidden = true;
@@ -256,12 +258,28 @@ function buildRequestMessage() {
 
 function showSmsFallback(message) {
   const smsUrl = `sms:+19105274800?&body=${encodeURIComponent(message)}`;
-  if (formStatus) formStatus.textContent = "Email delivery was unavailable. Your request is ready to text instead.";
+  setFormStatus("Email delivery was unavailable. Your request is ready to text instead.", "error");
   if (smsRequestLink) {
     smsRequestLink.href = smsUrl;
     smsRequestLink.hidden = false;
   }
 }
+
+function setFormStatus(message, state = "success") {
+  if (!formStatus) return;
+  if (formStatusMessage) formStatusMessage.textContent = message;
+  formStatus.dataset.state = state;
+  formStatus.hidden = false;
+}
+
+function clearFormStatus() {
+  if (!formStatus) return;
+  formStatus.hidden = true;
+  formStatus.removeAttribute("data-state");
+  if (formStatusMessage) formStatusMessage.textContent = "";
+}
+
+dismissFormStatusButton?.addEventListener("click", clearFormStatus);
 
 quoteForm?.addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -272,39 +290,28 @@ quoteForm?.addEventListener("submit", async (event) => {
   const requestMessage = buildRequestMessage();
   const selectedMethod = contactMethods.find((method) => method.checked)?.value;
   const contactDetail = contactValue?.value.trim() || "";
-  const hasPhoto = [...quoteForm.querySelectorAll("[data-item-photo]")].some((input) => input.files?.length);
   if (quoteMessageField) quoteMessageField.value = requestMessage;
   if (quotePreferredContactField) quotePreferredContactField.value = selectedMethod || "not specified";
   if (quoteEmailField) quoteEmailField.value = selectedMethod === "email" ? contactDetail : "";
   if (quoteReplyToField) quoteReplyToField.value = selectedMethod === "email" ? contactDetail : "";
   if (quoteUrlField) quoteUrlField.value = window.location.href.split("#")[0];
 
-  if (hasPhoto) {
-    HTMLFormElement.prototype.submit.call(quoteForm);
-    submitButton.textContent = "Request sent";
-    if (formStatus) formStatus.textContent = "Request sent. We will follow up by your preferred method.";
-    if (smsRequestLink) smsRequestLink.hidden = true;
-    return;
-  }
-
   try {
     const formData = new FormData(quoteForm);
-    const formBody = new URLSearchParams();
+    const formBody = new FormData();
     for (const [key, value] of formData.entries()) {
-      if (typeof value === "string" && !key.startsWith("items[")) formBody.append(key, value);
+      if (key.startsWith("items[")) continue;
+      if (typeof value === "string" || (value instanceof File && value.name)) formBody.append(key, value);
     }
     const response = await fetch(FORM_EMAIL_ENDPOINT, {
       method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
-      },
+      headers: { Accept: "application/json" },
       body: formBody
     });
     const result = await response.json().catch(() => ({}));
     if (!response.ok || result.success === false || result.success === "false") throw new Error("FormSubmit request failed");
     submitButton.textContent = "Sent successfully";
-    if (formStatus) formStatus.textContent = "Request sent. We will follow up by your preferred method.";
+    setFormStatus("Request sent. We will follow up by your preferred method.");
     if (smsRequestLink) smsRequestLink.hidden = true;
   } catch (error) {
     submitButton.disabled = false;

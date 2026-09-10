@@ -249,7 +249,7 @@
               <article class="item-card" data-item-card>
                 <div class="item-card-header"><strong data-item-number>Item 1</strong><button class="item-card-remove" data-remove-item type="button" hidden>Remove</button></div>
                 <label><span>Furniture or item <b>*</b></span><input data-item-name id="item-name-1" type="text" name="items[0][name]" placeholder="Example: queen platform bed" required /></label>
-                <label class="upload-field"><span>Add a photo or screenshot</span><input data-item-photo id="item-photo-1" type="file" name="items[0][photo]" accept="image/*" /><span class="upload-control"><span>Choose a photo</span><small data-file-name>No file chosen</small></span><img class="upload-preview" data-file-preview alt="Selected furniture photo preview" hidden /></label>
+                <label class="upload-field"><span>Add a photo or screenshot</span><input data-item-photo id="item-photo-1" type="file" name="item_1_photo" accept="image/*" /><span class="upload-control"><span>Choose a photo</span><small data-file-name>Optional</small></span><img class="upload-preview" data-file-preview alt="" aria-hidden="true" hidden /></label>
                 <label><span>Product link (optional)</span><input data-item-link id="item-link-1" type="url" name="items[0][link]" placeholder="https://" /></label>
               </article>
               </div>
@@ -261,7 +261,10 @@
                 <button class="button button-quiet" data-prev-step type="button">Back</button>
                 <button class="button button-primary form-submit" type="submit">Send Request</button>
               </div>
-              <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+              <div class="form-status" id="form-status" role="status" aria-live="polite" hidden>
+                <span class="form-status-message" data-form-status-message></span>
+                <button class="form-status-dismiss" data-dismiss-form-status type="button" aria-label="Dismiss message">×</button>
+              </div>
               <a class="sms-request-link" id="sms-request-link" href="#" hidden>Open your text message</a>
             </div>
           </div>

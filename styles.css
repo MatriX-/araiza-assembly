@@ -228,6 +228,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .upload-control { min-height: 43px; display: flex !important; align-items: center; justify-content: space-between; gap: 10px; padding: 9px 11px; border: 1px dashed rgba(223, 0, 111, 0.56); border-radius: 9px; color: var(--ink-strong) !important; cursor: pointer; }
 .upload-field:focus-within .upload-control { border-color: var(--accent-deep); box-shadow: 0 0 0 3px rgba(223, 0, 111, 0.14); }
 .upload-control span { font-weight: 800; }.upload-control small { max-width: 54%; overflow: hidden; color: var(--ink-faint); font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
+.upload-preview[hidden] { display: none; }
 .upload-preview { width: 72px; height: 54px; margin-top: 8px; border: 1px solid rgba(18, 63, 102, 0.15); border-radius: 9px; background: var(--paper); object-fit: cover; }
 .add-item { width: 100%; min-height: 43px; margin-top: 11px; border: 1px dashed rgba(223, 0, 111, 0.56); border-radius: 10px; background: transparent; color: var(--accent-deep); font-size: 13px; font-weight: 800; }
 .add-item:hover { border-color: var(--accent-deep); background: var(--white); color: var(--ink-strong); }
@@ -237,7 +238,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .button-quiet { border-color: rgba(18, 63, 102, 0.28); background: transparent; color: var(--ink-strong); }
 .button-quiet:hover { border-color: var(--accent-deep); background: var(--white); }
 .form-submit { width: 100%; margin-top: 18px; }
-.form-status { min-height: 18px; margin: 11px 0 0; color: var(--accent-deep); font-size: 12px; line-height: 1.4; }
+.form-status { display: flex; align-items: flex-start; gap: 12px; margin: 13px 0 0; padding: 12px 13px; border: 1px solid rgba(18, 63, 102, 0.14); border-left: 4px solid var(--accent-deep); border-radius: 12px; background: var(--white); box-shadow: 0 8px 18px rgba(13, 49, 81, 0.08); color: var(--ink-strong); font-size: 13px; line-height: 1.4; }
+.form-status[hidden] { display: none; }
+.form-status[data-state="error"] { border-left-color: var(--blue); }
+.form-status-message { flex: 1; }
+.form-status-dismiss { flex: 0 0 auto; width: 25px; height: 25px; margin: -4px -3px 0 0; border: 0; border-radius: 50%; background: transparent; color: var(--ink-faint); font-size: 20px; line-height: 1; }
+.form-status-dismiss:hover, .form-status-dismiss:focus-visible { background: var(--accent-soft); color: var(--accent-deep); }
 .sms-request-link { display: inline-flex; margin-top: 4px; color: var(--accent-deep); font-size: 12px; font-weight: 800; text-decoration: underline; text-underline-offset: 3px; }
 .sms-request-link[hidden] { display: none; }
 
