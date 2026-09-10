@@ -1,6 +1,6 @@
 document.documentElement.classList.add("js");
 
-const FORM_EMAIL_ENDPOINT = "https://formsubmit.co/ajax/Araizacrystal6@gmail.com";
+const FORM_EMAIL_ENDPOINT = "https://formsubmit.co/ajax/pricing@araizabuild.com";
 
 const menuToggle = document.querySelector(".menu-toggle");
 const mobileMenu = document.querySelector("#mobile-menu");
