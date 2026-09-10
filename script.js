@@ -39,6 +39,7 @@ const quoteTriggers = document.querySelectorAll("[data-quote-trigger]");
 const closeQuoteButtons = document.querySelectorAll("[data-close-quote]");
 const quoteForm = document.querySelector("#quote-form");
 const quoteSteps = quoteDialog ? [...quoteDialog.querySelectorAll("[data-quote-step]")] : [];
+const quoteSuccess = document.querySelector("#quote-success");
 const contactMethods = quoteDialog ? [...quoteDialog.querySelectorAll('input[name="contact-method"]')] : [];
 const contactValueField = document.querySelector("#contact-value-field");
 const contactValueLabel = document.querySelector("#contact-value-label");
@@ -63,12 +64,23 @@ let activeQuoteStep = 1;
 
 function showQuoteStep(step, focusSelector) {
   activeQuoteStep = step;
+  if (quoteSuccess) quoteSuccess.hidden = true;
   quoteSteps.forEach((quoteStep) => {
     quoteStep.hidden = Number(quoteStep.dataset.quoteStep) !== step;
   });
   quoteDialog?.setAttribute("aria-labelledby", step === 1 ? "quote-dialog-title" : "quote-dialog-step2-title");
   quoteDialog?.scrollTo({ top: 0, behavior: "auto" });
   if (focusSelector) window.setTimeout(() => quoteDialog?.querySelector(focusSelector)?.focus(), 50);
+}
+
+function showQuoteSuccess() {
+  if (!quoteSuccess) return;
+  activeQuoteStep = 0;
+  quoteSteps.forEach((quoteStep) => { quoteStep.hidden = true; });
+  quoteSuccess.hidden = false;
+  quoteDialog?.setAttribute("aria-labelledby", "quote-success-title");
+  quoteDialog?.scrollTo({ top: 0, behavior: "auto" });
+  window.setTimeout(() => quoteSuccess.querySelector("[data-close-quote]")?.focus(), 50);
 }
 
 function updateContactField() {
@@ -352,9 +364,8 @@ quoteForm?.addEventListener("submit", async (event) => {
       const result = await response.json().catch(() => ({}));
       if (!response.ok || result.success === false || result.success === "false") throw new Error("FormSubmit request failed");
     }
-    submitButton.textContent = "Sent successfully";
-    setFormStatus("Request sent. We will follow up by your preferred method.");
     if (smsRequestLink) smsRequestLink.hidden = true;
+    showQuoteSuccess();
   } catch (error) {
     submitButton.disabled = false;
     submitButton.textContent = "Try email again";
