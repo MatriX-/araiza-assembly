@@ -291,7 +291,7 @@ quoteForm?.addEventListener("submit", async (event) => {
     const formData = new FormData(quoteForm);
     const formBody = new URLSearchParams();
     for (const [key, value] of formData.entries()) {
-      if (typeof value === "string") formBody.append(key, value);
+      if (typeof value === "string" && !key.startsWith("items[")) formBody.append(key, value);
     }
     const response = await fetch(FORM_EMAIL_ENDPOINT, {
       method: "POST",
