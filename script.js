@@ -232,6 +232,7 @@ function buildRequestMessage() {
   const valueFor = (selector) => quoteForm?.querySelector(selector)?.value.trim() || "";
   const selectedMethod = contactMethods.find((method) => method.checked)?.value || "not specified";
   const contactDetail = contactValue?.value.trim() || "not provided";
+  const notes = valueFor('[name="notes"]');
   const lines = [
     "Hi Araiza Assembly! I would like a free estimate.",
     `Name: ${valueFor('[name="customer-name"]')}`,
@@ -247,6 +248,8 @@ function buildRequestMessage() {
     const hasPhoto = Boolean(card.querySelector("[data-item-photo]")?.files?.length);
     lines.push(`${index + 1}. ${itemName}${itemLink ? ` — ${itemLink}` : ""}${hasPhoto ? " — photo selected; attach it to this text" : ""}`);
   });
+
+  if (notes) lines.push("", `Additional notes: ${notes}`);
 
   return lines.join("\n");
 }

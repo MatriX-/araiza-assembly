@@ -195,6 +195,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .form-grid label { display: grid; gap: 6px; }
 .form-grid label > span:first-child, .contact-method legend { color: var(--ink-strong); font-size: 12px; font-weight: 800; }
 .form-grid label b { color: var(--accent-deep); }
+.form-grid label em { color: var(--ink-faint); font-style: normal; font-weight: 500; }
 .form-grid input:not([type="radio"]):not([type="file"]), .form-grid textarea { width: 100%; border: 1px solid #d6e1e8; border-radius: 9px; background: var(--white); color: var(--ink-strong); padding: 10px 11px; }
 .form-grid input:not([type="radio"]):not([type="file"]) { height: 43px; }
 .form-grid textarea { min-height: 82px; resize: vertical; }
