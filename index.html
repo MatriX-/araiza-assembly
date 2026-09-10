@@ -208,6 +208,7 @@
           <input class="form-honeypot" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" />
           <input type="hidden" name="_subject" value="New Araiza Assembly estimate request" />
           <input type="hidden" name="_template" value="table" />
+          <input type="hidden" name="_captcha" value="false" />
           <input type="hidden" name="_next" value="https://araizabuild.com/?quote=sent" />
           <input type="hidden" name="_url" id="quote-url" value="https://araizabuild.com/" />
           <input type="hidden" name="message" id="quote-message" />
@@ -248,9 +249,9 @@
               <div class="item-list" id="item-list">
               <article class="item-card" data-item-card>
                 <div class="item-card-header"><strong data-item-number>Item 1</strong><button class="item-card-remove" data-remove-item type="button" hidden>Remove</button></div>
-                <label><span>Furniture or item <b>*</b></span><input data-item-name id="item-name-1" type="text" name="items[0][name]" placeholder="Example: queen platform bed" required /></label>
+                <label><span>Furniture or item <b>*</b></span><input data-item-name id="item-name-1" type="text" name="item_1_name" placeholder="Example: queen platform bed" required /></label>
                 <label class="upload-field"><span>Add a photo or screenshot</span><input data-item-photo id="item-photo-1" type="file" name="item_1_photo" accept="image/*" /><span class="upload-control"><span>Choose a photo</span><small data-file-name>Optional</small></span><img class="upload-preview" data-file-preview alt="" aria-hidden="true" hidden /></label>
-                <label><span>Product link (optional)</span><input data-item-link id="item-link-1" type="url" name="items[0][link]" placeholder="https://" /></label>
+                <label><span>Product link (optional)</span><input data-item-link id="item-link-1" type="url" name="item_1_link" placeholder="https://" /></label>
               </article>
               </div>
               <div class="form-grid">

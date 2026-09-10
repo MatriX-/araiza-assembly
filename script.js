@@ -55,6 +55,8 @@ const quotePreferredContactField = document.querySelector("#quote-preferred-cont
 const quoteEmailField = document.querySelector("#quote-email");
 const quoteReplyToField = document.querySelector("#quote-replyto");
 const quoteUrlField = document.querySelector("#quote-url");
+const quoteNextField = quoteForm?.querySelector('[name="_next"]');
+const quoteSubmitFrame = document.querySelector("#quote-submit-frame");
 const nextStepButton = quoteDialog?.querySelector("[data-next-step]");
 const previousStepButton = quoteDialog?.querySelector("[data-prev-step]");
 let activeQuoteStep = 1;
@@ -112,11 +114,11 @@ function syncItemCards() {
     const itemName = card.querySelector("[data-item-name]");
     const itemPhoto = card.querySelector("[data-item-photo]");
     const itemLink = card.querySelector("[data-item-link]");
-    itemName.name = `items[${index}][name]`;
+    itemName.name = `item_${itemNumber}_name`;
     itemName.id = `item-name-${itemNumber}`;
     itemPhoto.name = `item_${itemNumber}_photo`;
     itemPhoto.id = `item-photo-${itemNumber}`;
-    itemLink.name = `items[${index}][link]`;
+    itemLink.name = `item_${itemNumber}_link`;
     card.querySelector("[data-remove-item]").hidden = cards.length === 1;
   });
 }
@@ -265,6 +267,38 @@ function showSmsFallback(message) {
   }
 }
 
+function submitNativeForm() {
+  return new Promise((resolve, reject) => {
+    if (!quoteSubmitFrame) {
+      reject(new Error("Quote submission frame is unavailable"));
+      return;
+    }
+
+    let settled = false;
+    let timeout;
+    const finish = (success) => {
+      if (settled) return;
+      settled = true;
+      window.clearTimeout(timeout);
+      quoteSubmitFrame.removeEventListener("load", handleLoad);
+      if (success) resolve();
+      else reject(new Error("Native FormSubmit request failed"));
+    };
+    const handleLoad = () => {
+      try {
+        const resultUrl = new URL(quoteSubmitFrame.contentWindow.location.href);
+        finish(resultUrl.origin === window.location.origin && resultUrl.searchParams.get("quote") === "sent");
+      } catch {
+        finish(false);
+      }
+    };
+
+    timeout = window.setTimeout(() => finish(false), 20000);
+    quoteSubmitFrame.addEventListener("load", handleLoad);
+    HTMLFormElement.prototype.submit.call(quoteForm);
+  });
+}
+
 function setFormStatus(message, state = "success") {
   if (!formStatus) return;
   if (formStatusMessage) formStatusMessage.textContent = message;
@@ -295,21 +329,29 @@ quoteForm?.addEventListener("submit", async (event) => {
   if (quoteEmailField) quoteEmailField.value = selectedMethod === "email" ? contactDetail : "";
   if (quoteReplyToField) quoteReplyToField.value = selectedMethod === "email" ? contactDetail : "";
   if (quoteUrlField) quoteUrlField.value = window.location.href.split("#")[0];
+  if (quoteNextField) quoteNextField.value = `${window.location.origin}/?quote=sent`;
 
   try {
-    const formData = new FormData(quoteForm);
-    const formBody = new FormData();
-    for (const [key, value] of formData.entries()) {
-      if (key.startsWith("items[")) continue;
-      if (typeof value === "string" || (value instanceof File && value.name)) formBody.append(key, value);
+    const hasPhoto = [...quoteForm.querySelectorAll("[data-item-photo]")].some((input) => input.files?.length);
+    if (hasPhoto) {
+      await submitNativeForm();
+    } else {
+      const formData = new FormData(quoteForm);
+      const formBody = new URLSearchParams();
+      for (const [key, value] of formData.entries()) {
+        if (typeof value === "string" && !key.startsWith("items[")) formBody.append(key, value);
+      }
+      const response = await fetch(FORM_EMAIL_ENDPOINT, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
+        },
+        body: formBody
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || result.success === false || result.success === "false") throw new Error("FormSubmit request failed");
     }
-    const response = await fetch(FORM_EMAIL_ENDPOINT, {
-      method: "POST",
-      headers: { Accept: "application/json" },
-      body: formBody
-    });
-    const result = await response.json().catch(() => ({}));
-    if (!response.ok || result.success === false || result.success === "false") throw new Error("FormSubmit request failed");
     submitButton.textContent = "Sent successfully";
     setFormStatus("Request sent. We will follow up by your preferred method.");
     if (smsRequestLink) smsRequestLink.hidden = true;
