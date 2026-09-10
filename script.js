@@ -51,7 +51,6 @@ const formStatus = document.querySelector("#form-status");
 const formStatusMessage = document.querySelector("[data-form-status-message]");
 const dismissFormStatusButton = document.querySelector("[data-dismiss-form-status]");
 const smsRequestLink = document.querySelector("#sms-request-link");
-const quoteMessageField = document.querySelector("#quote-message");
 const quotePreferredContactField = document.querySelector("#quote-preferred-contact-method");
 const quoteEmailField = document.querySelector("#quote-email");
 const quoteReplyToField = document.querySelector("#quote-replyto");
@@ -336,7 +335,6 @@ quoteForm?.addEventListener("submit", async (event) => {
   const requestMessage = buildRequestMessage();
   const selectedMethod = contactMethods.find((method) => method.checked)?.value;
   const contactDetail = contactValue?.value.trim() || "";
-  if (quoteMessageField) quoteMessageField.value = requestMessage;
   if (quotePreferredContactField) quotePreferredContactField.value = selectedMethod || "not specified";
   if (quoteEmailField) quoteEmailField.value = selectedMethod === "email" ? contactDetail : "";
   if (quoteReplyToField) quoteReplyToField.value = selectedMethod === "email" ? contactDetail : "";
