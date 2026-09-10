@@ -204,8 +204,16 @@
     <dialog class="quote-dialog" id="quote-dialog" aria-labelledby="quote-dialog-title">
       <div class="dialog-shell">
         <button class="dialog-close" type="button" data-close-quote aria-label="Close quote form">×</button>
-        <form id="quote-form" enctype="multipart/form-data">
+        <form id="quote-form" action="https://formsubmit.co/Araizacrystal6@gmail.com" method="POST" enctype="multipart/form-data" target="quote-submit-frame">
           <input class="form-honeypot" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" />
+          <input type="hidden" name="_subject" value="New Araiza Assembly estimate request" />
+          <input type="hidden" name="_template" value="table" />
+          <input type="hidden" name="_next" value="https://araizabuild.com/?quote=sent" />
+          <input type="hidden" name="_url" id="quote-url" value="https://araizabuild.com/" />
+          <input type="hidden" name="message" id="quote-message" />
+          <input type="hidden" name="preferred_contact_method" id="quote-preferred-contact-method" />
+          <input type="hidden" name="email" id="quote-email" />
+          <input type="hidden" name="_replyto" id="quote-replyto" />
           <div class="quote-step" data-quote-step="1">
             <div class="dialog-heading">
               <p class="about-label">Free Estimate</p>
@@ -255,6 +263,7 @@
             </div>
           </div>
         </form>
+        <iframe id="quote-submit-frame" name="quote-submit-frame" title="Quote form submission response" hidden aria-hidden="true"></iframe>
       </div>
     </dialog>
 

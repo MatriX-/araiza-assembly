@@ -10,7 +10,7 @@ This is intentionally a dependency-free static prototype.
 python3 -m http.server 4173
 ```
 
-Open `http://localhost:4173` in a browser. The quote form opens in a compact two-step modal and does not send or store submissions. The phone links use `tel:+19105274800`.
+Open `http://localhost:4173` in a browser. The quote form opens in a compact two-step modal, sends text-only requests through the AJAX endpoint, and uses the native multipart form path when a photo is attached. The phone links use `tel:+19105274800`.
 
 ## Design read
 

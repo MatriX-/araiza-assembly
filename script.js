@@ -48,6 +48,11 @@ const itemList = document.querySelector("#item-list");
 const initialItemCard = itemList?.querySelector("[data-item-card]")?.cloneNode(true);
 const formStatus = document.querySelector("#form-status");
 const smsRequestLink = document.querySelector("#sms-request-link");
+const quoteMessageField = document.querySelector("#quote-message");
+const quotePreferredContactField = document.querySelector("#quote-preferred-contact-method");
+const quoteEmailField = document.querySelector("#quote-email");
+const quoteReplyToField = document.querySelector("#quote-replyto");
+const quoteUrlField = document.querySelector("#quote-url");
 const nextStepButton = quoteDialog?.querySelector("[data-next-step]");
 const previousStepButton = quoteDialog?.querySelector("[data-prev-step]");
 let activeQuoteStep = 1;
@@ -264,22 +269,34 @@ quoteForm?.addEventListener("submit", async (event) => {
   const requestMessage = buildRequestMessage();
   const selectedMethod = contactMethods.find((method) => method.checked)?.value;
   const contactDetail = contactValue?.value.trim() || "";
-  const formData = new FormData(quoteForm);
-  formData.append("_subject", "New Araiza Assembly estimate request");
-  formData.append("_template", "table");
-  formData.append("_url", window.location.href.split("#")[0]);
-  formData.append("message", requestMessage);
-  formData.append("preferred_contact_method", selectedMethod || "not specified");
-  if (selectedMethod === "email" && contactDetail) {
-    formData.append("email", contactDetail);
-    formData.append("_replyto", contactDetail);
+  const hasPhoto = [...quoteForm.querySelectorAll("[data-item-photo]")].some((input) => input.files?.length);
+  if (quoteMessageField) quoteMessageField.value = requestMessage;
+  if (quotePreferredContactField) quotePreferredContactField.value = selectedMethod || "not specified";
+  if (quoteEmailField) quoteEmailField.value = selectedMethod === "email" ? contactDetail : "";
+  if (quoteReplyToField) quoteReplyToField.value = selectedMethod === "email" ? contactDetail : "";
+  if (quoteUrlField) quoteUrlField.value = window.location.href.split("#")[0];
+
+  if (hasPhoto) {
+    HTMLFormElement.prototype.submit.call(quoteForm);
+    submitButton.textContent = "Request sent";
+    if (formStatus) formStatus.textContent = "Request sent. We will follow up by your preferred method.";
+    if (smsRequestLink) smsRequestLink.hidden = true;
+    return;
   }
 
   try {
+    const formData = new FormData(quoteForm);
+    const formBody = new URLSearchParams();
+    for (const [key, value] of formData.entries()) {
+      if (typeof value === "string") formBody.append(key, value);
+    }
     const response = await fetch(FORM_EMAIL_ENDPOINT, {
       method: "POST",
-      headers: { Accept: "application/json" },
-      body: formData
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
+      },
+      body: formBody
     });
     const result = await response.json().catch(() => ({}));
     if (!response.ok || result.success === false || result.success === "false") throw new Error("FormSubmit request failed");
