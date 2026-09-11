@@ -101,7 +101,7 @@ function updateContactField() {
     contactValue.type = "text";
     contactValue.removeAttribute("autocomplete");
     contactValue.placeholder = "";
-    if (contactHelper) contactHelper.textContent = "Choose email or phone to show the right contact field.";
+    if (contactHelper) contactHelper.textContent = "Your email is required for the receipt and reply thread. Choose a preferred follow-up method.";
     return;
   }
 
@@ -114,7 +114,7 @@ function updateContactField() {
     contactValue.type = "tel";
     contactValue.removeAttribute("autocomplete");
     contactValue.placeholder = "";
-    if (contactHelper) contactHelper.textContent = "We will use the email above for your quote and ongoing replies.";
+    if (contactHelper) contactHelper.textContent = "We will use the email above for your receipt and ongoing replies.";
     return;
   }
 
@@ -122,7 +122,7 @@ function updateContactField() {
   contactValue.autocomplete = "tel";
   contactValue.placeholder = "910-527-4800";
   contactValueLabel.innerHTML = "Phone number <b>*</b>";
-  if (contactHelper) contactHelper.textContent = "We will use this number for your quote; your email above keeps the request thread together.";
+  if (contactHelper) contactHelper.textContent = "We will use this number for follow-up, and email the receipt above.";
 }
 
 function validateStep(step) {
