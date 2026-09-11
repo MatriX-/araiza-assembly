@@ -93,10 +93,10 @@ function updateContactField() {
   const hasMethod = selectedMethod === "email" || selectedMethod === "phone";
   if (!contactValueField || !contactValueLabel || !contactValue) return;
 
-  contactValueField.hidden = !hasMethod;
-  contactValue.disabled = !hasMethod;
-  contactValue.required = hasMethod;
   if (!hasMethod) {
+    contactValueField.hidden = true;
+    contactValue.disabled = true;
+    contactValue.required = false;
     contactValue.value = "";
     contactValue.type = "text";
     contactValue.removeAttribute("autocomplete");
@@ -106,13 +106,23 @@ function updateContactField() {
   }
 
   const isEmail = selectedMethod === "email";
-  contactValue.type = isEmail ? "email" : "tel";
-  contactValue.autocomplete = isEmail ? "email" : "tel";
-  contactValue.placeholder = isEmail ? "you@example.com" : "910-527-4800";
-  contactValueLabel.innerHTML = `${isEmail ? "Email address" : "Phone number"} <b>*</b>`;
-  if (contactHelper) contactHelper.textContent = isEmail
-    ? "We will use this email for your quote and ongoing replies."
-    : "We will use this number for your quote; your email above keeps the request thread together.";
+  contactValueField.hidden = isEmail;
+  contactValue.disabled = isEmail;
+  contactValue.required = !isEmail;
+  if (isEmail) {
+    contactValue.value = "";
+    contactValue.type = "tel";
+    contactValue.removeAttribute("autocomplete");
+    contactValue.placeholder = "";
+    if (contactHelper) contactHelper.textContent = "We will use the email above for your quote and ongoing replies.";
+    return;
+  }
+
+  contactValue.type = "tel";
+  contactValue.autocomplete = "tel";
+  contactValue.placeholder = "910-527-4800";
+  contactValueLabel.innerHTML = "Phone number <b>*</b>";
+  if (contactHelper) contactHelper.textContent = "We will use this number for your quote; your email above keeps the request thread together.";
 }
 
 function validateStep(step) {
@@ -263,7 +273,8 @@ previousStepButton?.addEventListener("click", () => showQuoteStep(1, 'input[name
 function buildRequestMessage() {
   const valueFor = (selector) => quoteForm?.querySelector(selector)?.value.trim() || "";
   const selectedMethod = contactMethods.find((method) => method.checked)?.value || "not specified";
-  const contactDetail = contactValue?.value.trim() || "not provided";
+  const email = quoteEmailField?.value.trim() || "";
+  const contactDetail = selectedMethod === "email" ? email || "not provided" : contactValue?.value.trim() || "not provided";
   const notes = valueFor('[name="notes"]');
   const lines = [
     "Hi Araiza Assembly! I would like a free estimate.",
@@ -289,6 +300,8 @@ function buildRequestMessage() {
 function buildCustomerConfirmationPayload() {
   const valueFor = (selector) => quoteForm?.querySelector(selector)?.value.trim() || "";
   const selectedMethod = contactMethods.find((method) => method.checked)?.value || "not specified";
+  const email = quoteEmailField?.value.trim() || "";
+  const contactDetail = selectedMethod === "email" ? email : contactValue?.value.trim() || "";
   const items = [...(itemList?.querySelectorAll("[data-item-card]") || [])].map((card) => ({
     name: card.querySelector("[data-item-name]")?.value.trim() || "Item details not provided",
     link: card.querySelector("[data-item-link]")?.value.trim() || "",
@@ -299,9 +312,9 @@ function buildCustomerConfirmationPayload() {
     website: quoteForm?.querySelector('[name="_honey"]')?.value || "",
     request_id: window.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`,
     name: valueFor('[name="customer-name"]'),
-    email: quoteEmailField?.value.trim() || "",
+    email,
     preferred_contact_method: selectedMethod,
-    contact_value: contactValue?.value.trim() || "",
+    contact_value: contactDetail,
     zip_code: valueFor('[name="zip-code"]'),
     notes: valueFor('[name="notes"]'),
     items
@@ -382,7 +395,6 @@ quoteForm?.addEventListener("submit", async (event) => {
   submitButton.textContent = "Sending…";
   const requestMessage = buildRequestMessage();
   const selectedMethod = contactMethods.find((method) => method.checked)?.value;
-  const contactDetail = contactValue?.value.trim() || "";
   if (quotePreferredContactField) quotePreferredContactField.value = selectedMethod || "not specified";
   if (quoteReplyToField) quoteReplyToField.value = quoteEmailField?.value.trim() || "";
   if (quoteUrlField) quoteUrlField.value = window.location.href.split("#")[0];
