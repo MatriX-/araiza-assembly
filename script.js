@@ -1,6 +1,6 @@
 document.documentElement.classList.add("js");
 
-const FORM_EMAIL_ENDPOINT = "https://formsubmit.co/ajax/pricing@araizabuild.com";
+const CUSTOMER_CONFIRMATION_ENDPOINT = "https://araiza-confirmation.stephenmatrixca.workers.dev";
 
 const menuToggle = document.querySelector(".menu-toggle");
 const mobileMenu = document.querySelector("#mobile-menu");
@@ -40,6 +40,7 @@ const closeQuoteButtons = document.querySelectorAll("[data-close-quote]");
 const quoteForm = document.querySelector("#quote-form");
 const quoteSteps = quoteDialog ? [...quoteDialog.querySelectorAll("[data-quote-step]")] : [];
 const quoteSuccess = document.querySelector("#quote-success");
+const quoteSuccessMessage = document.querySelector("#quote-success-message");
 const contactMethods = quoteDialog ? [...quoteDialog.querySelectorAll('input[name="contact-method"]')] : [];
 const contactValueField = document.querySelector("#contact-value-field");
 const contactValueLabel = document.querySelector("#contact-value-label");
@@ -72,11 +73,16 @@ function showQuoteStep(step, focusSelector) {
   if (focusSelector) window.setTimeout(() => quoteDialog?.querySelector(focusSelector)?.focus(), 50);
 }
 
-function showQuoteSuccess() {
+function showQuoteSuccess(confirmationSent = false) {
   if (!quoteSuccess) return;
   activeQuoteStep = 0;
   quoteSteps.forEach((quoteStep) => { quoteStep.hidden = true; });
   quoteSuccess.hidden = false;
+  if (quoteSuccessMessage) {
+    quoteSuccessMessage.textContent = confirmationSent
+      ? "Thanks for sharing the details. We also sent a clean copy to your email. Reply to that email anytime if you want to add anything."
+      : "Thanks for sharing the details. Your request was received, and we will follow up by your preferred method."
+  }
   quoteDialog?.setAttribute("aria-labelledby", "quote-success-title");
   quoteDialog?.scrollTo({ top: 0, behavior: "auto" });
   window.setTimeout(() => quoteSuccess.querySelector("[data-close-quote]")?.focus(), 50);
@@ -104,7 +110,9 @@ function updateContactField() {
   contactValue.autocomplete = isEmail ? "email" : "tel";
   contactValue.placeholder = isEmail ? "you@example.com" : "910-527-4800";
   contactValueLabel.innerHTML = `${isEmail ? "Email address" : "Phone number"} <b>*</b>`;
-  if (contactHelper) contactHelper.textContent = isEmail ? "We will use this email for your quote." : "We will use this phone number for your quote.";
+  if (contactHelper) contactHelper.textContent = isEmail
+    ? "We will use this email for your quote and ongoing replies."
+    : "We will use this number for your quote; your email above keeps the request thread together.";
 }
 
 function validateStep(step) {
@@ -130,6 +138,15 @@ function syncItemCards() {
     itemPhoto.name = `item_${itemNumber}_photo`;
     itemPhoto.id = `item-photo-${itemNumber}`;
     itemLink.name = `item_${itemNumber}_link`;
+    if (!itemPhoto.files?.length) {
+      const fileName = card.querySelector("[data-file-name]");
+      const preview = card.querySelector("[data-file-preview]");
+      if (fileName) fileName.textContent = "Optional";
+      if (preview) {
+        preview.hidden = true;
+        preview.removeAttribute("src");
+      }
+    }
     card.querySelector("[data-remove-item]").hidden = cards.length === 1;
   });
 }
@@ -269,6 +286,37 @@ function buildRequestMessage() {
   return lines.join("\n");
 }
 
+function buildCustomerConfirmationPayload() {
+  const valueFor = (selector) => quoteForm?.querySelector(selector)?.value.trim() || "";
+  const selectedMethod = contactMethods.find((method) => method.checked)?.value || "not specified";
+  const items = [...(itemList?.querySelectorAll("[data-item-card]") || [])].map((card) => ({
+    name: card.querySelector("[data-item-name]")?.value.trim() || "Item details not provided",
+    link: card.querySelector("[data-item-link]")?.value.trim() || "",
+    photo: card.querySelector("[data-item-photo]")?.files?.length ? true : false
+  }));
+
+  return {
+    website: quoteForm?.querySelector('[name="_honey"]')?.value || "",
+    request_id: window.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`,
+    name: valueFor('[name="customer-name"]'),
+    email: quoteEmailField?.value.trim() || "",
+    preferred_contact_method: selectedMethod,
+    contact_value: contactValue?.value.trim() || "",
+    zip_code: valueFor('[name="zip-code"]'),
+    notes: valueFor('[name="notes"]'),
+    items
+  };
+}
+
+async function sendCustomerConfirmation() {
+  const response = await fetch(CUSTOMER_CONFIRMATION_ENDPOINT, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(buildCustomerConfirmationPayload())
+  });
+  if (!response.ok) throw new Error(`Customer confirmation failed (${response.status})`);
+}
+
 function showSmsFallback(message) {
   const smsUrl = `sms:+19105274800?&body=${encodeURIComponent(message)}`;
   setFormStatus("Email delivery was unavailable. Your request is ready to text instead.", "error");
@@ -336,38 +384,33 @@ quoteForm?.addEventListener("submit", async (event) => {
   const selectedMethod = contactMethods.find((method) => method.checked)?.value;
   const contactDetail = contactValue?.value.trim() || "";
   if (quotePreferredContactField) quotePreferredContactField.value = selectedMethod || "not specified";
-  if (quoteEmailField) quoteEmailField.value = selectedMethod === "email" ? contactDetail : "";
-  if (quoteReplyToField) quoteReplyToField.value = selectedMethod === "email" ? contactDetail : "";
+  if (quoteReplyToField) quoteReplyToField.value = quoteEmailField?.value.trim() || "";
   if (quoteUrlField) quoteUrlField.value = window.location.href.split("#")[0];
   if (quoteNextField) quoteNextField.value = `${window.location.origin}/?quote=sent`;
 
   try {
-    const hasPhoto = [...quoteForm.querySelectorAll("[data-item-photo]")].some((input) => input.files?.length);
-    if (hasPhoto) {
-      await submitNativeForm();
-    } else {
-      const formData = new FormData(quoteForm);
-      const formBody = new URLSearchParams();
-      for (const [key, value] of formData.entries()) {
-        if (typeof value === "string" && !key.startsWith("items[")) formBody.append(key, value);
-      }
-      const response = await fetch(FORM_EMAIL_ENDPOINT, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
-        },
-        body: formBody
-      });
-      const result = await response.json().catch(() => ({}));
-      if (!response.ok || result.success === false || result.success === "false") throw new Error("FormSubmit request failed");
-    }
-    if (smsRequestLink) smsRequestLink.hidden = true;
-    showQuoteSuccess();
+    await submitNativeForm();
   } catch (error) {
     submitButton.disabled = false;
     submitButton.textContent = "Try email again";
     showSmsFallback(requestMessage);
+    return;
+  }
+
+  let confirmationSent = false;
+  try {
+    await sendCustomerConfirmation();
+    confirmationSent = true;
+  } catch (error) {
+    console.error(error);
+  }
+
+  try {
+    if (smsRequestLink) smsRequestLink.hidden = true;
+    showQuoteSuccess(confirmationSent);
+  } finally {
+    submitButton.disabled = false;
+    submitButton.textContent = "Send Request";
   }
 });
 

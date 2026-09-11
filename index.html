@@ -212,17 +212,17 @@
           <input type="hidden" name="_next" value="https://araizabuild.com/?quote=sent" />
           <input type="hidden" name="_url" id="quote-url" value="https://araizabuild.com/" />
           <input type="hidden" name="preferred_contact_method" id="quote-preferred-contact-method" />
-          <input type="hidden" name="email" id="quote-email" />
           <input type="hidden" name="_replyto" id="quote-replyto" />
           <div class="quote-step" data-quote-step="1">
             <div class="dialog-heading">
               <p class="about-label">Free Estimate</p>
               <h2 id="quote-dialog-title">Let's get started.</h2>
-              <p>Tell us how to reach you, then share what you need assembled. We will email your request and keep text as a backup.</p>
+              <p>Tell us how to reach you, then share what you need assembled. We will email a receipt and keep your preferred contact method as a backup.</p>
             </div>
             <div class="quote-form">
               <div class="form-grid">
               <label class="full-field"><span>First and last name <b>*</b></span><input type="text" name="customer-name" autocomplete="name" required /></label>
+              <label class="full-field"><span>Email address for confirmation and replies <b>*</b></span><input id="quote-email" type="email" name="email" autocomplete="email" placeholder="you@example.com" required /></label>
               <fieldset class="contact-method full-field">
                 <legend>Preferred method of contact <b>*</b></legend>
                 <div class="contact-options">
@@ -273,7 +273,7 @@
             <div class="quote-success-mark" aria-hidden="true">✓</div>
             <p class="about-label">Request received</p>
             <h2 id="quote-success-title">We received your request.</h2>
-            <p>Thanks for sharing the details. We will follow up by your preferred method.</p>
+            <p id="quote-success-message">Thanks for sharing the details. Your request was received, and we will follow up by your preferred method.</p>
             <button class="button button-primary" data-close-quote type="button">Done</button>
           </section>
         </form>
