@@ -217,6 +217,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .contact-option input[type="radio"] { width: 18px; height: 18px; flex: 0 0 auto; margin: 0; accent-color: var(--accent-deep); }
 .contact-option span { color: inherit; font-size: 13px; font-weight: 800; }
 .contact-helper { margin: 7px 0 0; color: var(--ink-faint); font-size: 12px; line-height: 1.4; }
+#quote-email-field[hidden] { display: none; }
 .contact-value-field[hidden] { display: none; }
 .item-list { display: grid; gap: 11px; }
 .item-card { padding: 14px; border: 1px solid rgba(18, 63, 102, 0.14); border-radius: 12px; background: var(--white); }
