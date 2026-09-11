@@ -54,6 +54,7 @@ const dismissFormStatusButton = document.querySelector("[data-dismiss-form-statu
 const smsRequestLink = document.querySelector("#sms-request-link");
 const quotePreferredContactField = document.querySelector("#quote-preferred-contact-method");
 const quoteEmailField = document.querySelector("#quote-email");
+const quoteEmailContainer = document.querySelector("#quote-email-field");
 const quoteReplyToField = document.querySelector("#quote-replyto");
 const quoteUrlField = document.querySelector("#quote-url");
 const quoteNextField = quoteForm?.querySelector('[name="_next"]');
@@ -91,9 +92,12 @@ function showQuoteSuccess(confirmationSent = false) {
 function updateContactField() {
   const selectedMethod = contactMethods.find((method) => method.checked)?.value;
   const hasMethod = selectedMethod === "email" || selectedMethod === "phone";
-  if (!contactValueField || !contactValueLabel || !contactValue) return;
+  if (!contactValueField || !contactValueLabel || !contactValue || !quoteEmailContainer || !quoteEmailField) return;
 
   if (!hasMethod) {
+    quoteEmailContainer.hidden = true;
+    quoteEmailField.disabled = true;
+    quoteEmailField.required = false;
     contactValueField.hidden = true;
     contactValue.disabled = true;
     contactValue.required = false;
@@ -101,10 +105,13 @@ function updateContactField() {
     contactValue.type = "text";
     contactValue.removeAttribute("autocomplete");
     contactValue.placeholder = "";
-    if (contactHelper) contactHelper.textContent = "Your email is required for the receipt and reply thread. Choose a preferred follow-up method.";
+    if (contactHelper) contactHelper.textContent = "Choose Email or Phone to continue.";
     return;
   }
 
+  quoteEmailContainer.hidden = false;
+  quoteEmailField.disabled = false;
+  quoteEmailField.required = true;
   const isEmail = selectedMethod === "email";
   contactValueField.hidden = isEmail;
   contactValue.disabled = isEmail;
@@ -114,7 +121,7 @@ function updateContactField() {
     contactValue.type = "tel";
     contactValue.removeAttribute("autocomplete");
     contactValue.placeholder = "";
-    if (contactHelper) contactHelper.textContent = "We will use the email above for your receipt and ongoing replies.";
+    if (contactHelper) contactHelper.textContent = "We will use this email for your receipt and ongoing replies.";
     return;
   }
 
@@ -122,7 +129,7 @@ function updateContactField() {
   contactValue.autocomplete = "tel";
   contactValue.placeholder = "910-527-4800";
   contactValueLabel.innerHTML = "Phone number <b>*</b>";
-  if (contactHelper) contactHelper.textContent = "We will use this number for follow-up, and email the receipt above.";
+  if (contactHelper) contactHelper.textContent = "We will use this number for follow-up, and email the receipt to you.";
 }
 
 function validateStep(step) {

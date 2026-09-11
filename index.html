@@ -217,20 +217,20 @@
             <div class="dialog-heading">
               <p class="about-label">Free Estimate</p>
               <h2 id="quote-dialog-title">Let's get started.</h2>
-              <p>Tell us how to reach you, then share what you need assembled. We will email a receipt and keep your preferred contact method as a backup.</p>
+              <p>Choose how you would like us to follow up. Then add your email for the receipt and ongoing replies.</p>
             </div>
             <div class="quote-form">
               <div class="form-grid">
               <label class="full-field"><span>First and last name <b>*</b></span><input type="text" name="customer-name" autocomplete="name" required /></label>
-              <label class="full-field"><span>Email address for your receipt and replies <b>*</b></span><input id="quote-email" type="email" name="email" autocomplete="email" placeholder="you@example.com" required /></label>
               <fieldset class="contact-method full-field">
                 <legend>Preferred method of contact <b>*</b></legend>
                 <div class="contact-options">
                   <label class="contact-option"><input type="radio" name="contact-method" value="email" required /><span>Email</span></label>
                   <label class="contact-option"><input type="radio" name="contact-method" value="phone" required /><span>Phone</span></label>
                 </div>
-                <p class="contact-helper" id="contact-helper">Your email is required for the receipt and reply thread. Choose a preferred follow-up method.</p>
+                <p class="contact-helper" id="contact-helper">Choose Email or Phone to continue.</p>
               </fieldset>
+              <label class="full-field" id="quote-email-field" hidden><span>Email address for your receipt and replies <b>*</b></span><input id="quote-email" type="email" name="email" autocomplete="email" placeholder="you@example.com" disabled required /></label>
               <label class="full-field contact-value-field" id="contact-value-field" hidden><span id="contact-value-label">Contact information <b>*</b></span><input id="contact-value" type="text" name="contact-value" disabled required /></label>
               <label class="full-field"><span>Zip code <b>*</b></span><input type="text" name="zip-code" inputmode="numeric" autocomplete="postal-code" pattern="[0-9]{5}(-[0-9]{4})?" placeholder="28387" required /></label>
               </div>
