@@ -102,7 +102,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .section-heading h2::before, .section-heading h2::after { width: 32px; height: 3px; flex: 0 0 32px; border-radius: 99px; background: var(--accent-deep); content: ""; }
 .section-heading p { margin: 0; font-size: 18px; }
 .process-grid { display: grid; grid-template-columns: 1fr 34px 1fr 34px 1fr; align-items: center; gap: 16px; }
-.process-card { min-height: 210px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 18px 18px; text-align: center; }
+.process-card { min-height: 210px; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 18px 18px; text-align: center; }
 .process-visual { display: flex; align-items: center; justify-content: center; gap: 9px; margin-bottom: 16px; }
 .process-number { width: 54px; height: 54px; display: grid; place-items: center; margin-bottom: 16px; border-radius: 50%; background: var(--accent-deep); color: var(--white); font-size: 28px; font-weight: 900; line-height: 1; }
 .process-visual .process-number { margin-bottom: 0; }
