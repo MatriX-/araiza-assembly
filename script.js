@@ -366,9 +366,13 @@ function submitNativeForm() {
     const handleLoad = () => {
       try {
         const resultUrl = new URL(quoteSubmitFrame.contentWindow.location.href);
-        finish(resultUrl.origin === window.location.origin && resultUrl.searchParams.get("quote") === "sent");
+        if (resultUrl.origin === window.location.origin && resultUrl.searchParams.get("quote") === "sent") {
+          finish(true);
+        }
       } catch {
-        finish(false);
+        // FormSubmit may load a cross-origin response before following _next.
+        // Keep listening for the final same-origin redirect instead of showing
+        // a false delivery failure on browsers that expose that intermediate load.
       }
     };
 
